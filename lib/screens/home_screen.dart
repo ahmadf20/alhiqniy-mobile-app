@@ -258,31 +258,32 @@ class _HomeScreenState extends State<HomeScreen> {
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: <Widget>[
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Text(
-                        '${DateFormat('EEEE, \nd MMMM y', 'id').format(DateTime.now())}',
-                        style: TextStyle(
-                          fontFamily: 'Muli',
-                          color: Theme.of(context).primaryColor,
-                          fontSize: 20,
-                          fontWeight: FontWeight.w700,
-                          height: 1.5,
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Text(
+                          '${DateFormat('EEEE, \nd MMMM y', 'id').format(DateTime.now())}',
+                          style: TextStyle(
+                            fontFamily: 'Muli',
+                            color: Theme.of(context).primaryColor,
+                            fontSize: 20,
+                            fontWeight: FontWeight.w700,
+                            height: 1.5,
+                          ),
                         ),
-                      ),
-                      Text(
-                        _currentAddress,
-                        style: TextStyle(
-                          fontFamily: 'OpenSans',
-                          color: Theme.of(context).primaryColor,
-                          fontSize: 12,
-                          // fontWeight: FontWeight.w700,
+                        Text(
+                          _currentAddress,
+                          style: TextStyle(
+                            fontFamily: 'OpenSans',
+                            color: Theme.of(context).primaryColor,
+                            fontSize: 12,
+                            // fontWeight: FontWeight.w700,
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
-                  Spacer(),
                   Container(
                     height: 40,
                     child: VerticalDivider(

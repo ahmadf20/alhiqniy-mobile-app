@@ -1,19 +1,18 @@
-import 'package:alhiqniy/screens/account_setting.dart';
-import 'package:alhiqniy/screens/auth_screen.dart';
-import 'package:alhiqniy/screens/chat_screen.dart';
-import 'package:alhiqniy/screens/choose_mudaris_screen.dart';
-import 'package:alhiqniy/screens/detail_halaqah_screen.dart';
-import 'package:alhiqniy/screens/forgot_password_screen.dart';
-import 'package:alhiqniy/screens/home_screen.dart';
-import 'package:alhiqniy/screens/intro_screen.dart';
-import 'package:alhiqniy/screens/jadwal_sholat_screen.dart';
-import 'package:alhiqniy/screens/main_menu.dart';
-import 'package:alhiqniy/screens/maktabah_screen.dart';
-// import 'package:alhiqniy/screens/maktabah_screen.dart';
-import 'package:alhiqniy/screens/notification_screen.dart';
-import 'package:alhiqniy/screens/presence_screen.dart';
-import 'package:alhiqniy/screens/verif_mudaris_list.dart';
-import 'package:alhiqniy/screens/verif_mudaris_otp.dart';
+import 'package:alhiqniy/screens/s_account_setting.dart';
+import 'package:alhiqniy/screens/s_auth.dart';
+import 'package:alhiqniy/screens/s_chat.dart';
+import 'package:alhiqniy/screens/s_choose_mudaris.dart';
+import 'package:alhiqniy/screens/s_detail_halaqah.dart';
+import 'package:alhiqniy/screens/s_forgot_password.dart';
+import 'package:alhiqniy/screens/s_home.dart';
+import 'package:alhiqniy/screens/s_landing.dart';
+import 'package:alhiqniy/screens/s_prayer_times.dart';
+import 'package:alhiqniy/screens/s_main_menu.dart';
+import 'package:alhiqniy/screens/s_maktabah.dart';
+import 'package:alhiqniy/screens/s_notification.dart';
+import 'package:alhiqniy/screens/s_presence.dart';
+import 'package:alhiqniy/screens/s_verif_mudaris_list.dart';
+import 'package:alhiqniy/screens/s_verif_mudaris_otp.dart';
 
 final routes = {
   IntroScreen.routeName: (context) => IntroScreen(),

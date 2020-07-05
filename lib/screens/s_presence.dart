@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:alhiqniy/providers/p_user.dart';
-import 'package:alhiqniy/screens/call.dart';
+import 'package:alhiqniy/screens/s_call.dart';
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
@@ -17,7 +17,7 @@ class PresenceScreen extends StatefulWidget {
 
 class _PresenceScreenState extends State<PresenceScreen> {
   UserType _userType;
-  String _channelName =
+  String channelName =
       '12345'; //TODO: later on change this to the halaqah title + date
 
   @override
@@ -167,7 +167,7 @@ class _PresenceScreenState extends State<PresenceScreen> {
         context,
         MaterialPageRoute(
           builder: (context) => CallPage(
-            channelName: _channelName,
+            channelName: channelName,
           ),
         ),
       );

@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:alhiqniy/models/prayer_times.dart';
+import 'package:alhiqniy/models/m_prayer_times.dart';
 import 'package:http/http.dart';
 
 /// [value, default value, description]

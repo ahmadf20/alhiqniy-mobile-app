@@ -1,12 +1,12 @@
-import 'package:alhiqniy/models/prayer_times.dart';
+import 'package:alhiqniy/models/m_prayer_times.dart';
 import 'package:flutter/foundation.dart';
 
 class PrayerTimesProvider extends ChangeNotifier {
   PrayerTimes _todayPrayerTimes;
 
-  get todayPrayerTimes => _todayPrayerTimes;
+  PrayerTimes get todayPrayerTimes => _todayPrayerTimes;
 
-  set(PrayerTimes todayPrayerTimes) {
+  void set(PrayerTimes todayPrayerTimes) {
     _todayPrayerTimes = todayPrayerTimes;
     notifyListeners();
   }

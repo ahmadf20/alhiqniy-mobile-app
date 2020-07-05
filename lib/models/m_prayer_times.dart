@@ -53,37 +53,32 @@ class PrayerTimes {
   });
 
   factory PrayerTimes.fromJson(Map<String, dynamic> json) => PrayerTimes(
-        title: json["title"] == null ? null : json["title"],
-        query: json["query"] == null ? null : json["query"],
-        prayerTimesFor: json["for"] == null ? null : json["for"],
-        method: json["method"] == null ? null : json["method"].toString(),
-        prayerMethodName: json["prayer_method_name"] == null
-            ? null
-            : json["prayer_method_name"],
-        daylight: json["daylight"] == null ? null : json["daylight"],
-        timezone: json["timezone"] == null ? null : json["timezone"],
+        title: json["title"],
+        query: json["query"],
+        prayerTimesFor: json["for"],
+        method: json["method"].toString(),
+        prayerMethodName: json["prayer_method_name"],
+        daylight: json["daylight"],
+        timezone: json["timezone"],
         todayWeather: json["today_weather"] == null
             ? null
             : TodayWeather.fromJson(json["today_weather"]),
-        link: json["link"] == null ? null : json["link"],
-        qiblaDirection:
-            json["qibla_direction"] == null ? null : json["qibla_direction"],
-        latitude: json["latitude"] == null ? null : json["latitude"],
-        longitude: json["longitude"] == null ? null : json["longitude"],
-        address: json["address"] == null ? null : json["address"],
-        city: json["city"] == null ? null : json["city"],
-        state: json["state"] == null ? null : json["state"],
-        postalCode: json["postal_code"] == null ? null : json["postal_code"],
-        country: json["country"] == null ? null : json["country"],
-        countryCode: json["country_code"] == null ? null : json["country_code"],
+        link: json["link"],
+        qiblaDirection: json["qibla_direction"],
+        latitude: json["latitude"],
+        longitude: json["longitude"],
+        address: json["address"],
+        city: json["city"],
+        state: json["state"],
+        postalCode: json["postal_code"],
+        country: json["country"],
+        countryCode: json["country_code"],
         items: json["items"] == null
             ? null
             : List<Item>.from(json["items"].map((x) => Item.fromJson(x))),
-        statusValid: json["status_valid"] == null ? null : json["status_valid"],
-        statusCode: json["status_code"] == null ? null : json["status_code"],
-        statusDescription: json["status_description"] == null
-            ? null
-            : json["status_description"],
+        statusValid: json["status_valid"],
+        statusCode: json["status_code"],
+        statusDescription: json["status_description"],
       );
 }
 
@@ -107,7 +102,7 @@ class Item {
   });
 
   factory Item.fromJson(Map<String, dynamic> json) => Item(
-        dateFor: json["date_for"] == null ? null : json["date_for"],
+        dateFor: json["date_for"],
         fajr: json["fajr"] == null ? null : convertTimeFormat(json["fajr"]),
         shurooq:
             json["shurooq"] == null ? null : convertTimeFormat(json["shurooq"]),
@@ -142,9 +137,7 @@ class EnumValues<T> {
   EnumValues(this.map);
 
   Map<T, String> get reverse {
-    if (reverseMap == null) {
-      reverseMap = map.map((k, v) => MapEntry(v, k));
-    }
+    reverseMap ??= map.map((k, v) => MapEntry(v, k));
     return reverseMap;
   }
 }

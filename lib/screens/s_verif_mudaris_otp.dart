@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:alhiqniy/screens/main_menu.dart';
+import 'package:alhiqniy/screens/s_main_menu.dart';
 import 'package:alhiqniy/utils/f_mudaris.dart';
 import 'package:alhiqniy/utils/function.dart';
 import 'package:flutter/material.dart';

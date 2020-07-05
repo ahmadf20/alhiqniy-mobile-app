@@ -1,7 +1,7 @@
 import 'dart:ui';
 
 import 'package:alhiqniy/providers/p_user.dart';
-import 'package:alhiqniy/screens/auth_screen.dart';
+import 'package:alhiqniy/screens/s_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

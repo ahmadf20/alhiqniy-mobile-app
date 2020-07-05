@@ -1,7 +1,7 @@
 import 'dart:async';
 
-import 'package:alhiqniy/models/prayer_times.dart';
-import 'package:alhiqniy/screens/home_screen.dart';
+import 'package:alhiqniy/models/m_prayer_times.dart';
+import 'package:alhiqniy/screens/s_home.dart';
 import 'package:alhiqniy/utils/f_prayer_times.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -21,7 +21,7 @@ class _JadwalSholatScreenState extends State<JadwalSholatScreen> {
   Future<PrayerTimes> _fetcthPrayerTimes;
   // bool _isLoading = false;
 
-  updatePrayerTimesData() {
+  void updatePrayerTimesData() {
     _fetcthPrayerTimes = fetchPrayerTimes(
         'monthly', 'cimahi', '01-${_focusedDay.month}-${_focusedDay.year}');
   }

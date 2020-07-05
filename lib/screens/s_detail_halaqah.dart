@@ -1,7 +1,5 @@
-import 'package:alhiqniy/providers/p_user.dart';
-import 'package:alhiqniy/screens/presence_screen.dart';
+import 'package:alhiqniy/screens/s_presence.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class DetailHalaqahScreen extends StatefulWidget {
   static const routeName = '/deatil_halaqah_screen';
@@ -13,16 +11,6 @@ class DetailHalaqahScreen extends StatefulWidget {
 }
 
 class _DetailHalaqahScreenState extends State<DetailHalaqahScreen> {
-  UserType _userType;
-
-  @override
-  void initState() {
-    super.initState();
-    setState(() {
-      _userType = Provider.of<UserProvider>(context, listen: false).userType;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

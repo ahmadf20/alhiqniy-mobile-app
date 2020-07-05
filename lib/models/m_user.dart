@@ -1,6 +1,6 @@
-Auth signUpFromJson(Map str) => Auth.fromJson(str);
+User signUpFromJson(Map str) => User.fromJson(str);
 
-class Auth {
+class User {
   String id;
   String profileId;
   String username;
@@ -14,7 +14,7 @@ class Auth {
   String token;
   bool verified;
 
-  Auth({
+  User({
     this.id,
     this.profileId,
     this.username,
@@ -29,7 +29,7 @@ class Auth {
     this.verified,
   });
 
-  factory Auth.fromJson(Map<String, dynamic> json) => Auth(
+  factory User.fromJson(Map<String, dynamic> json) => User(
         id: json["id"],
         profileId: json["profile_id"],
         username: json["username"],
@@ -43,6 +43,6 @@ class Auth {
         name: json["name"],
         phone: json["phone"],
         token: json["token"],
-        verified: json["verified"] == null ? null : json["verified"],
+        verified: json["verified"],
       );
 }

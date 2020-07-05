@@ -1,14 +1,14 @@
 import 'dart:async';
 
-import 'package:alhiqniy/models/auth.dart';
+import 'package:alhiqniy/models/m_user.dart';
 import 'package:alhiqniy/providers/p_user.dart';
-import 'package:alhiqniy/screens/main_menu.dart';
-import 'package:alhiqniy/screens/verif_mudaris_list.dart';
+import 'package:alhiqniy/screens/s_main_menu.dart';
+import 'package:alhiqniy/screens/s_verif_mudaris_list.dart';
 import 'package:alhiqniy/utils/f_user.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:alhiqniy/screens/choose_mudaris_screen.dart';
-import 'package:alhiqniy/screens/forgot_password_screen.dart';
+import 'package:alhiqniy/screens/s_choose_mudaris.dart';
+import 'package:alhiqniy/screens/s_forgot_password.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
@@ -425,7 +425,7 @@ class _AuthScreenState extends State<AuthScreen> {
 
     try {
       await signIn(handphone, password, profile).then((response) async {
-        if (response is Auth) {
+        if (response is User) {
           await saveLoginData(handphone, password, profile, response.token);
 
           print('Token : ${await getToken()}');
@@ -457,7 +457,7 @@ class _AuthScreenState extends State<AuthScreen> {
 
     try {
       await signUp(nama, username, phone, password, profile).then((response) {
-        if (response is Auth) {
+        if (response is User) {
           saveLoginData(phone, password, profile, response.token);
 
           // TODO: make it to be able to go back to the auth_screen, check the user id if it has already registered. Then show choose_mudaris screen when they first login (check in the database if user has chose any mudaris)

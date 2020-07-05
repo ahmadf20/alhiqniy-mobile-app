@@ -1,7 +1,7 @@
 import 'dart:async';
 
-import 'package:alhiqniy/models/mudaris.dart';
-import 'package:alhiqniy/screens/main_menu.dart';
+import 'package:alhiqniy/models/m_mudaris.dart';
+import 'package:alhiqniy/screens/s_main_menu.dart';
 import 'package:alhiqniy/utils/f_mudaris.dart';
 import 'package:flutter/material.dart';
 
@@ -15,7 +15,7 @@ class ChooseMudaris extends StatefulWidget {
 }
 
 class _ChooseMudarisState extends State<ChooseMudaris> {
-  List<int> listSelectedMudaris = List();
+  List<int> listSelectedMudaris = [];
 
   List<Mudaris> listMudaris;
 
@@ -93,7 +93,7 @@ class _ChooseMudarisState extends State<ChooseMudaris> {
                     ? Center(
                         child: IconButton(
                           icon: Icon(Icons.refresh),
-                          onPressed: () => getMudarisList(),
+                          onPressed: getMudarisList,
                         ),
                       )
                     : MudarisCardList(
@@ -130,7 +130,7 @@ class _ChooseMudarisState extends State<ChooseMudaris> {
                           'assets/icons/next_button.png',
                           width: 47,
                         ),
-                        onPressed: listSelectedMudaris.length == 0
+                        onPressed: listSelectedMudaris.isEmpty
                             ? null
                             : () {
                                 Navigator.of(context)

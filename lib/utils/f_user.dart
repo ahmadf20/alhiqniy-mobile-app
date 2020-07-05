@@ -1,8 +1,8 @@
 import 'dart:async';
 import 'dart:convert';
-import 'package:alhiqniy/main.dart';
-import 'package:alhiqniy/models/auth.dart';
-import 'package:alhiqniy/screens/intro_screen.dart';
+import 'package:alhiqniy/models/m_user.dart';
+import 'package:alhiqniy/screens/s_landing.dart';
+import 'package:alhiqniy/utils/keys.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:shared_preferences/shared_preferences.dart';

@@ -1,8 +1,8 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:alhiqniy/main.dart';
-import 'package:alhiqniy/models/mudaris.dart';
+import 'package:alhiqniy/models/m_mudaris.dart';
+import 'package:alhiqniy/utils/keys.dart';
 import 'package:alhiqniy/utils/f_user.dart';
 import 'package:http/http.dart';
 

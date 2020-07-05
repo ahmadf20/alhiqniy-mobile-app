@@ -1,7 +1,7 @@
-import 'package:alhiqniy/screens/account_setting.dart';
-import 'package:alhiqniy/screens/chat_screen.dart';
-import 'package:alhiqniy/screens/home_screen.dart';
-import 'package:alhiqniy/screens/notification_screen.dart';
+import 'package:alhiqniy/screens/s_account_setting.dart';
+import 'package:alhiqniy/screens/s_chat.dart';
+import 'package:alhiqniy/screens/s_home.dart';
+import 'package:alhiqniy/screens/s_notification.dart';
 import 'package:flutter/material.dart';
 
 class MainMenu extends StatefulWidget {

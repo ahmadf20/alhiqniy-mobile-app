@@ -1,4 +1,4 @@
-import 'package:alhiqniy/models/models.dart';
+import 'package:alhiqniy/models/m_dummy.dart';
 import 'package:alhiqniy/providers/p_user.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -12,14 +12,9 @@ class NotificationScreen extends StatefulWidget {
 }
 
 class _NotificationScreenState extends State<NotificationScreen> {
-  UserType _userType;
-
   @override
   void initState() {
     super.initState();
-    setState(() {
-      _userType = Provider.of<UserProvider>(context, listen: false).userType;
-    });
   }
 
   @override

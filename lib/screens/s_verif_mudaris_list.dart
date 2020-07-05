@@ -1,7 +1,7 @@
 import 'dart:async';
 
-import 'package:alhiqniy/models/mudaris.dart';
-import 'package:alhiqniy/screens/verif_mudaris_otp.dart';
+import 'package:alhiqniy/models/m_mudaris.dart';
+import 'package:alhiqniy/screens/s_verif_mudaris_otp.dart';
 import 'package:alhiqniy/utils/f_mudaris.dart';
 import 'package:alhiqniy/utils/function.dart';
 import 'package:flutter/material.dart';

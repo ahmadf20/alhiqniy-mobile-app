@@ -1,7 +1,7 @@
 import 'package:alhiqniy/providers/p_prayer_times.dart';
 import 'package:alhiqniy/providers/p_user.dart';
-import 'package:alhiqniy/screens/intro_screen.dart';
-import 'package:alhiqniy/screens/main_menu.dart';
+import 'package:alhiqniy/screens/s_landing.dart';
+import 'package:alhiqniy/screens/s_main_menu.dart';
 import 'package:alhiqniy/utils/f_user.dart';
 import 'package:alhiqniy/utils/routes.dart';
 import 'package:bot_toast/bot_toast.dart';
@@ -13,9 +13,6 @@ import 'package:provider/provider.dart';
 
 final Geolocator geolocator = Geolocator()..forceAndroidLocationManager;
 Position currentPosition;
-
-final url = 'https://madrasah-online-api.herokuapp.com';
-
 void main() {
   initializeDateFormatting().then((_) => runApp(MyApp()));
 }
@@ -35,7 +32,7 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   var token;
 
-  getCurrentLocation() {
+  void getCurrentLocation() {
     geolocator
         .getCurrentPosition(desiredAccuracy: LocationAccuracy.best)
         .then((Position position) {
@@ -44,7 +41,7 @@ class _MyAppState extends State<MyApp> {
       });
       print(currentPosition.latitude.toString());
     }).catchError((e) {
-      print(e);
+      print(e.toString());
     });
   }
 

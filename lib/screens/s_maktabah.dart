@@ -67,7 +67,7 @@ class _MaktabahScreenState extends State<MaktabahScreen> {
                   swipeHorizontal: false,
                   nightMode: false,
                   onError: (e) {
-                    print(e);
+                    print(e.toString());
                   },
                   // onRender: (_pages) {
                   //   setState(() {

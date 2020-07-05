@@ -46,7 +46,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
               ),
               Container(
                 padding: EdgeInsets.only(
-                  left: 25,
+                  left: 40,
                   top: 10,
                 ),
                 child: Column(
@@ -57,62 +57,20 @@ class _NotificationScreenState extends State<NotificationScreen> {
                       style: TextStyle(
                         fontSize: 36,
                         fontFamily: 'Muli',
+                        fontWeight: FontWeight.w600,
                         color: Theme.of(context).primaryColor,
                       ),
                     ),
                   ],
                 ),
               ),
-              Container(
-                margin: EdgeInsets.only(top: 30),
-                padding: EdgeInsets.symmetric(horizontal: 25),
-                height: 45,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.only(
-                    bottomRight: Radius.circular(22),
-                    topRight: Radius.circular(22),
-                  ),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black12,
-                      blurRadius: 8,
-                      offset: Offset(4, 4),
-                    )
-                  ],
-                ),
-                child: FlatButton(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.only(
-                      bottomRight: Radius.circular(22),
-                      topRight: Radius.circular(22),
-                    ),
-                  ),
-                  child: Text(
-                    _userType == UserType.mudaris
-                        ? 'Konfirmasi Thullab'
-                        : 'Konfirmasi Halaqah',
-                    style: TextStyle(
-                      fontWeight: FontWeight.w500,
-                      fontSize: 14,
-                      color: Theme.of(context).primaryColor,
-                    ),
-                  ),
-                  padding: EdgeInsets.only(
-                    left: 0,
-                  ),
-                  onPressed: () {},
-                ),
-              ),
               Expanded(
                 child: Padding(
                   padding: const EdgeInsets.only(
-                    left: 25.0,
+                    left: 40,
                     top: 15,
                   ),
-                  child: _userType == UserType.mudaris
-                      ? NotifikasiCardMudaris()
-                      : NotifikasiCardThullab(),
+                  child: NotifikasiCard(),
                 ),
               ),
             ],
@@ -123,14 +81,14 @@ class _NotificationScreenState extends State<NotificationScreen> {
   }
 }
 
-class NotifikasiCardMudaris extends StatefulWidget {
-  NotifikasiCardMudaris({Key key}) : super(key: key);
+class NotifikasiCard extends StatefulWidget {
+  NotifikasiCard({Key key}) : super(key: key);
 
   @override
-  _NotifikasiCardMudarisState createState() => _NotifikasiCardMudarisState();
+  _NotifikasiCardState createState() => _NotifikasiCardState();
 }
 
-class _NotifikasiCardMudarisState extends State<NotifikasiCardMudaris> {
+class _NotifikasiCardState extends State<NotifikasiCard> {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
@@ -142,7 +100,7 @@ class _NotifikasiCardMudarisState extends State<NotifikasiCardMudaris> {
 
   Widget _buildCardListItem(BuildContext context, int index) {
     return Container(
-      height: 75,
+      padding: EdgeInsets.only(bottom: 22.5),
       margin: EdgeInsets.only(
           top: 20,
           bottom: (listKonfirmasiThullab.length - 1) == index ? 50 : 0),
@@ -154,11 +112,10 @@ class _NotifikasiCardMudarisState extends State<NotifikasiCardMudaris> {
         ),
       ),
       child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
           Container(
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(100),
+            child: ClipOval(
               child: Image.asset(
                 listKonfirmasiThullab[index].gambar,
                 width: 56,
@@ -171,7 +128,7 @@ class _NotifikasiCardMudarisState extends State<NotifikasiCardMudaris> {
           ),
           Expanded(
             child: Padding(
-              padding: const EdgeInsets.only(left: 16.0),
+              padding: const EdgeInsets.only(left: 16.0, right: 25),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
@@ -180,16 +137,15 @@ class _NotifikasiCardMudarisState extends State<NotifikasiCardMudaris> {
                     style: TextStyle(
                       fontFamily: 'Muli',
                       color: Colors.black,
-                      fontSize: 16,
+                      fontSize: 18,
+                      fontWeight: FontWeight.w600,
                     ),
                   ),
-                  SizedBox(
-                    height: 5,
-                  ),
+                  SizedBox(height: 2.5),
                   Text(
-                    'Meminta Izin untuk mengikuti halaqah',
+                    'Anda diizinkan mengikuti halaqah Manjahul Haq',
                     style: TextStyle(
-                      fontFamily: 'Muli',
+                      fontFamily: 'OpenSans',
                       color: Colors.grey,
                       fontSize: 12,
                     ),
@@ -198,146 +154,67 @@ class _NotifikasiCardMudarisState extends State<NotifikasiCardMudaris> {
               ),
             ),
           ),
-          listKonfirmasiThullab[index].isAccepted
-              ? Padding(
-                  padding: const EdgeInsets.only(right: 20.0),
-                  child: Center(
-                    child: Ink(
-                      child: InkWell(
-                        onTap: () {},
-                        child: Container(
-                          width: 90,
-                          height: 30,
-                          alignment: Alignment.center,
-                          decoration: BoxDecoration(
-                            color: Theme.of(context).primaryColor,
-                            borderRadius: BorderRadius.circular(100),
+          Provider.of<UserProvider>(context).userType == UserType.thullab
+              ? Container()
+              : listKonfirmasiThullab[index].isAccepted
+                  ? Padding(
+                      padding: const EdgeInsets.only(right: 20.0),
+                      child: Center(
+                        child: Ink(
+                          child: InkWell(
+                            onTap: () {},
+                            child: Container(
+                              width: 90,
+                              height: 30,
+                              alignment: Alignment.center,
+                              decoration: BoxDecoration(
+                                color: Theme.of(context).primaryColor,
+                                borderRadius: BorderRadius.circular(100),
+                              ),
+                              child: Text(
+                                'Hapus Izin',
+                                style: TextStyle(
+                                  fontFamily: 'Muli',
+                                  color: Colors.white,
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w700,
+                                ),
+                              ),
+                            ),
                           ),
-                          child: Text(
-                            'Hapus Izin',
-                            style: TextStyle(
-                              fontFamily: 'Muli',
-                              color: Colors.white,
-                              fontSize: 12,
-                              fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                    )
+                  : Padding(
+                      padding: const EdgeInsets.only(right: 20.0),
+                      child: Center(
+                        child: Ink(
+                          child: InkWell(
+                            onTap: () {},
+                            child: Container(
+                              width: 90,
+                              height: 30,
+                              alignment: Alignment.center,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(100),
+                                border: Border.all(
+                                  color: Theme.of(context).primaryColor,
+                                ),
+                              ),
+                              child: Text(
+                                'izinkan',
+                                style: TextStyle(
+                                  fontFamily: 'Muli',
+                                  color: Theme.of(context).primaryColor,
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w700,
+                                ),
+                              ),
                             ),
                           ),
                         ),
                       ),
                     ),
-                  ),
-                )
-              : Padding(
-                  padding: const EdgeInsets.only(right: 20.0),
-                  child: Center(
-                    child: Ink(
-                      child: InkWell(
-                        onTap: () {},
-                        child: Container(
-                          width: 90,
-                          height: 30,
-                          alignment: Alignment.center,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(100),
-                            border: Border.all(
-                              color: Theme.of(context).primaryColor,
-                            ),
-                          ),
-                          child: Text(
-                            'izinkan',
-                            style: TextStyle(
-                              fontFamily: 'Muli',
-                              color: Theme.of(context).primaryColor,
-                              fontSize: 12,
-                              fontWeight: FontWeight.w700,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-        ],
-      ),
-    );
-  }
-}
-
-class NotifikasiCardThullab extends StatefulWidget {
-  NotifikasiCardThullab({Key key}) : super(key: key);
-
-  @override
-  _NotifikasiCardThullabState createState() => _NotifikasiCardThullabState();
-}
-
-class _NotifikasiCardThullabState extends State<NotifikasiCardThullab> {
-  @override
-  Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: 2,
-      itemBuilder: _buildCardListItem,
-      shrinkWrap: true,
-    );
-  }
-
-  Widget _buildCardListItem(BuildContext context, int index) {
-    return Container(
-      height: 75,
-      margin: EdgeInsets.only(
-          top: 20,
-          bottom: (listKonfirmasiThullab.length - 1) == index ? 50 : 0),
-      decoration: BoxDecoration(
-        border: Border(
-          bottom: BorderSide(
-            color: Colors.grey[300],
-          ),
-        ),
-      ),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Container(
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(100),
-              child: Image.asset(
-                listKonfirmasiThullab[index].gambar,
-                width: 56,
-                height: 56,
-              ),
-            ),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(100),
-            ),
-          ),
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.only(left: 16.0, top: 5),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Text(
-                    listKonfirmasiThullab[index].nama,
-                    style: TextStyle(
-                      fontFamily: 'Muli',
-                      color: Colors.black,
-                      fontSize: 16,
-                    ),
-                  ),
-                  SizedBox(
-                    height: 5,
-                  ),
-                  Text(
-                    'Mengizinkan Antum untuk mengikuti halaqah',
-                    style: TextStyle(
-                      fontFamily: 'Muli',
-                      color: Colors.grey,
-                      fontSize: 12,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
         ],
       ),
     );

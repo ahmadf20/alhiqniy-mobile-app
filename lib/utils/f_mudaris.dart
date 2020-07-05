@@ -9,9 +9,9 @@ import 'package:http/http.dart';
 Future getAllMudaris() async {
   try {
     //TODO: uncomment line below
-    var token =
-        'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1OTY0OTM0MTksImlzcyI6Im1hZHJhc2FoLW9ubGluZSIsInN1YiI6IjI5IiwidXNlcm5hbWUiOiJ0aHVsbGFiMyIsInJvbGUiOiIzIiwiaWF0IjoxNTkzOTAxNDE5fQ._eVFRWtVpoIU6VGeNq6lZPeuoqMULierpfrWbR1Blw8';
-    // var token = await getToken();
+    // var token =
+    // 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1OTY0OTM0MTksImlzcyI6Im1hZHJhc2FoLW9ubGluZSIsInN1YiI6IjI5IiwidXNlcm5hbWUiOiJ0aHVsbGFiMyIsInJvbGUiOiIzIiwiaWF0IjoxNTkzOTAxNDE5fQ._eVFRWtVpoIU6VGeNq6lZPeuoqMULierpfrWbR1Blw8';
+    var token = await getToken();
 
     Map<String, String> header = {
       'Content-Type': 'application/json',

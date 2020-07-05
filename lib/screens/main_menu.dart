@@ -23,9 +23,12 @@ class _MainMenuState extends State<MainMenu> {
         return ChatScreen();
         break;
       case 2:
-        return NotificationScreen();
+        return Container();
         break;
       case 3:
+        return NotificationScreen();
+        break;
+      case 4:
         return AccountSetting();
         break;
       default:
@@ -43,9 +46,10 @@ class _MainMenuState extends State<MainMenu> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: callPage(_selectedIndex),
+      backgroundColor: Colors.white,
       bottomNavigationBar: BottomNavigationBar(
         iconSize: 25,
-        elevation: 10,
+        backgroundColor: Colors.white,
         selectedFontSize: 12,
         unselectedFontSize: 12,
         showUnselectedLabels: true,
@@ -57,67 +61,63 @@ class _MainMenuState extends State<MainMenu> {
         items: [
           BottomNavigationBarItem(
             icon: Image.asset(
-              'assets/icons/home.png',
-              height: 20,
+              'assets/icons/menu_home.png',
+              height: 32,
             ),
             activeIcon: Image.asset(
-              'assets/icons/home1.png',
-              height: 20,
+              'assets/icons/menu_home.png',
+              height: 32,
+              color: Theme.of(context).primaryColor,
             ),
-            title: Text(
-              'Home',
-              style: TextStyle(
-                fontFamily: 'OpenSans',
-              ),
-            ),
+            title: Container(),
           ),
           BottomNavigationBarItem(
             icon: Image.asset(
-              'assets/icons/chat.png',
-              height: 20,
+              'assets/icons/menu_chat.png',
+              height: 32,
             ),
             activeIcon: Image.asset(
-              'assets/icons/chat1.png',
-              height: 20,
+              'assets/icons/menu_chat.png',
+              height: 32,
+              color: Theme.of(context).primaryColor,
             ),
-            title: Text(
-              'Chat',
-              style: TextStyle(
-                fontFamily: 'OpenSans',
-              ),
-            ),
+            title: Container(),
           ),
           BottomNavigationBarItem(
             icon: Image.asset(
-              'assets/icons/notifikasi.png',
-              height: 20,
+              'assets/icons/menu_news.png',
+              height: 32,
             ),
             activeIcon: Image.asset(
-              'assets/icons/notifikasi1.png',
-              height: 20,
+              'assets/icons/menu_news.png',
+              height: 32,
+              color: Theme.of(context).primaryColor,
             ),
-            title: Text(
-              'Nofitikasi',
-              style: TextStyle(
-                fontFamily: 'OpenSans',
-              ),
-            ),
+            title: Container(),
           ),
           BottomNavigationBarItem(
             icon: Image.asset(
-              'assets/icons/akun.png',
-              height: 20,
+              'assets/icons/menu_notif.png',
+              height: 32,
             ),
             activeIcon: Image.asset(
-              'assets/icons/akun1.png',
-              height: 20,
+              'assets/icons/menu_notif.png',
+              height: 32,
+              color: Theme.of(context).primaryColor,
             ),
-            title: Text(
-              'Akun',
-              style: TextStyle(
-                fontFamily: 'OpenSans',
-              ),
+            title: Container(),
+          ),
+          BottomNavigationBarItem(
+            icon: Image.asset(
+              'assets/icons/menu_profile.png',
+              height: 32,
             ),
+            activeIcon: Image.asset(
+              'assets/icons/menu_profile.png',
+              height: 32,
+              color: Theme.of(context).primaryColor,
+            ),
+            title: Container(),
           ),
         ],
       ),

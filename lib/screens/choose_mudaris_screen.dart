@@ -57,37 +57,32 @@ class _ChooseMudarisState extends State<ChooseMudaris> {
                   offset: Offset(-15, 0),
                   child: BackButton(
                     onPressed: () {
-                      Navigator.of(context).canPop();
+                      Navigator.of(context).maybePop();
                     },
                   ),
                 ),
               ),
+
               Text(
-                'Pilih',
+                'Pilih\nHalaqah',
                 style: TextStyle(
                   fontFamily: 'Muli',
-                  fontSize: 34,
+                  fontSize: 36,
                   color: Theme.of(context).primaryColor,
-                ),
-              ),
-              Text(
-                'Mudaris',
-                style: TextStyle(
-                  fontFamily: 'Muli',
-                  fontSize: 40,
-                  color: Theme.of(context).primaryColor,
+                  fontWeight: FontWeight.w600,
                 ),
               ),
               Padding(
                 padding: const EdgeInsets.only(
                   top: 15,
+                  right: 25,
                   bottom: 30,
                 ),
                 child: Text(
-                  'Antum harus memilih Mudaris atau Ustadz untuk\nmengikuti halaqah di Madrash Online Al-Hiqniy',
+                  'Antum harus memilih Halaqah atau Ustadz untuk mengikuti halaqah di Madrash Online Alhiqniy',
                   style: TextStyle(
                     fontFamily: 'OpenSans',
-                    fontSize: 12,
+                    fontSize: 14,
                     color: Colors.grey,
                   ),
                 ),
@@ -200,8 +195,7 @@ class _MudarisCardListState extends State<MudarisCardList> {
           print('list length : ${_listSelectedMudaris.length}');
         },
         child: Container(
-          height: 65,
-          margin: EdgeInsets.only(top: 20),
+          padding: EdgeInsets.symmetric(vertical: 18.5),
           decoration: BoxDecoration(
             border: Border(
               bottom: BorderSide(
@@ -210,60 +204,8 @@ class _MudarisCardListState extends State<MudarisCardList> {
             ),
           ),
           child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              Container(
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(100),
-                  child: Image.asset(
-                    'assets/images/profile/profile2.png',
-                    width: 56,
-                    height: 56,
-                  ),
-                ),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(100),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 16.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Text(
-                      listMudaris[index].name,
-                      style: TextStyle(
-                        fontFamily: 'Muli',
-                        color: Colors.black,
-                        fontSize: 14,
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 2.50),
-                      child: Text(
-                        'Halaqah : ${listMudaris[index].name}',
-                        style: TextStyle(
-                          fontFamily: 'Muli',
-                          color: Colors.grey,
-                          fontSize: 11,
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 2.50),
-                      child: Text(
-                        'Jadwal : Senin | 32.34 WIB',
-                        style: TextStyle(
-                          fontFamily: 'Muli',
-                          color: Colors.grey,
-                          fontSize: 11,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Spacer(),
               _listSelectedMudaris.contains(index)
                   ? Padding(
                       padding: const EdgeInsets.only(right: 20.0),
@@ -298,6 +240,66 @@ class _MudarisCardListState extends State<MudarisCardList> {
                         ),
                       ),
                     ),
+              Container(
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(100),
+                  child: Image.asset(
+                    'assets/images/profile/profile2.png',
+                    width: 56,
+                    height: 56,
+                  ),
+                ),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(100),
+                ),
+              ),
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 16.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Text(
+                        listMudaris[index].name,
+                        style: TextStyle(
+                          fontFamily: 'OpenSans',
+                          color: Colors.black,
+                          fontSize: 12,
+                        ),
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                      Container(
+                        padding: const EdgeInsets.only(top: 2.50, right: 10),
+                        child: Text(
+                          '${listMudaris[index].name}',
+                          style: TextStyle(
+                            fontFamily: 'Muli',
+                            fontSize: 18,
+                            fontWeight: FontWeight.w600,
+                          ),
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 2.50),
+                        child: Text(
+                          'Ahad pekan - 3 | 20:15 WIB',
+                          style: TextStyle(
+                            fontFamily: 'OpenSans',
+                            color: Colors.grey,
+                            fontSize: 12,
+                          ),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
             ],
           ),
         ),

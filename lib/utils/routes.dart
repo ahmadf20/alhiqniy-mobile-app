@@ -2,6 +2,7 @@ import 'package:alhiqniy/screens/account_setting.dart';
 import 'package:alhiqniy/screens/auth_screen.dart';
 import 'package:alhiqniy/screens/chat_screen.dart';
 import 'package:alhiqniy/screens/choose_mudaris_screen.dart';
+import 'package:alhiqniy/screens/detail_halaqah_screen.dart';
 import 'package:alhiqniy/screens/forgot_password_screen.dart';
 import 'package:alhiqniy/screens/home_screen.dart';
 import 'package:alhiqniy/screens/intro_screen.dart';
@@ -29,4 +30,5 @@ final routes = {
   ChatScreen.routeName: (context) => ChatScreen(),
   PresenceScreen.routeName: (context) => PresenceScreen(),
   MaktabahScreen.routName: (context) => MaktabahScreen(),
+  DetailHalaqahScreen.routeName: (context) => DetailHalaqahScreen(),
 };

@@ -19,6 +19,9 @@ class _AccountSettingState extends State<AccountSetting> {
 
   @override
   Widget build(BuildContext context) {
+    var labelStyle = TextStyle(
+      fontFamily: 'Muli',
+    );
     return SafeArea(
       child: SingleChildScrollView(
         child: Container(
@@ -39,32 +42,20 @@ class _AccountSettingState extends State<AccountSetting> {
               ),
               Container(
                 padding: EdgeInsets.only(
-                  left: 25,
+                  left: 40,
                   top: 10,
                 ),
                 width: MediaQuery.of(context).size.width,
                 child: Stack(
                   children: <Widget>[
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Text(
-                          'Pengaturan',
-                          style: TextStyle(
-                            fontSize: 36,
-                            fontFamily: 'Muli',
-                            color: Theme.of(context).primaryColor,
-                          ),
-                        ),
-                        Text(
-                          'Akun',
-                          style: TextStyle(
-                            fontSize: 18,
-                            fontFamily: 'Muli',
-                            color: Theme.of(context).primaryColor,
-                          ),
-                        ),
-                      ],
+                    Text(
+                      'Pengaturan\nAkun',
+                      style: TextStyle(
+                        fontSize: 36,
+                        fontFamily: 'Muli',
+                        fontWeight: FontWeight.w600,
+                        color: Theme.of(context).primaryColor,
+                      ),
                     ),
                     Positioned(
                       right: 0,
@@ -80,31 +71,6 @@ class _AccountSettingState extends State<AccountSetting> {
                       ),
                     ),
                   ],
-                ),
-              ),
-              Container(
-                margin: EdgeInsets.only(left: 15, top: 5),
-                padding: EdgeInsets.all(6),
-                width: 120,
-                height: 120,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(100),
-                  border: Border.all(
-                    color: Colors.grey[300],
-                  ),
-                ),
-                child: Container(
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(100),
-                    child: Image.asset(
-                      'assets/images/profile/profile1.png',
-                      width: 108,
-                      height: 108,
-                    ),
-                  ),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(100),
-                  ),
                 ),
               ),
               SizedBox(
@@ -123,8 +89,9 @@ class _AccountSettingState extends State<AccountSetting> {
                       child: Column(
                         children: <Widget>[
                           TextFormField(
+                            style: labelStyle,
                             decoration: InputDecoration(
-                              labelText: 'Nama Lengkap',
+                              labelText: 'Nama',
                             ),
                             focusNode: _namaFocus,
                             keyboardType: TextInputType.text,
@@ -134,7 +101,9 @@ class _AccountSettingState extends State<AccountSetting> {
                                   .requestFocus(_usernameFocus);
                             },
                           ),
+                          SizedBox(height: 25),
                           TextFormField(
+                            style: labelStyle,
                             decoration: InputDecoration(
                               labelText: 'Username',
                             ),
@@ -146,7 +115,9 @@ class _AccountSettingState extends State<AccountSetting> {
                                   .requestFocus(_handphoneFocus);
                             },
                           ),
+                          SizedBox(height: 25),
                           TextFormField(
+                            style: labelStyle,
                             decoration: InputDecoration(
                               labelText: 'Handphone',
                             ),
@@ -158,7 +129,9 @@ class _AccountSettingState extends State<AccountSetting> {
                                   .requestFocus(_passwordFocus);
                             },
                           ),
+                          SizedBox(height: 25),
                           TextFormField(
+                            style: labelStyle,
                             decoration: InputDecoration(
                               labelText: 'Password',
                               suffixIcon: FlatButton(
@@ -204,6 +177,7 @@ class _AccountSettingState extends State<AccountSetting> {
                       style: TextStyle(
                         color: Theme.of(context).primaryColor,
                         fontSize: 20,
+                        fontWeight: FontWeight.w600,
                       ),
                     ),
                     FlatButton(

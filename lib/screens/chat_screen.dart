@@ -23,23 +23,24 @@ class ChatScreen extends StatelessWidget {
                 ),
                 child: BackButton(
                   onPressed: () {
-                    Navigator.of(context).pop();
+                    Navigator.of(context).maybePop();
                   },
                 ),
               ),
               Container(
                 padding: EdgeInsets.only(
-                  left: 25,
+                  left: 40,
                   top: 10,
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Text(
-                      'Chat',
+                      'Pesan',
                       style: TextStyle(
                         fontFamily: 'Muli',
-                        fontSize: 40,
+                        fontSize: 36,
+                        fontWeight: FontWeight.w600,
                         color: Theme.of(context).primaryColor,
                       ),
                     ),
@@ -51,9 +52,13 @@ class ChatScreen extends StatelessWidget {
                             bottom: 15,
                           ),
                           prefixIcon: Icon(Icons.search),
-                          labelText: 'Cari nama/group halaqah...',
+                          labelText: 'Cari nama atau pesan',
                           alignLabelWithHint: false,
+                          labelStyle: TextStyle(
+                            fontFamily: 'Muli',
+                          ),
                           floatingLabelBehavior: FloatingLabelBehavior.never,
+                          border: InputBorder.none,
                           focusedBorder: UnderlineInputBorder(
                             borderSide: BorderSide(
                               color: Theme.of(context).primaryColor,

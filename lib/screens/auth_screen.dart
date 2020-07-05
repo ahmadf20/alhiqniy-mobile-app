@@ -29,25 +29,25 @@ class _AuthScreenState extends State<AuthScreen> {
   bool _isLoading = false;
   String _userType;
 
-  TextEditingController _signInHandphoneTC = TextEditingController(
+  TextEditingController signInHandphoneTC = TextEditingController(
       text: '8562207263'); //TODO: should be removed on production
-  TextEditingController _signInPasswordTC =
+  TextEditingController signInPasswordTC =
       TextEditingController(text: 'thullab');
 
-  TextEditingController _signUpHandphoneTC = TextEditingController();
-  TextEditingController _signUPpasswordTC = TextEditingController();
-  TextEditingController _signUpNamaTC = TextEditingController();
-  TextEditingController _signUpUsernameTC = TextEditingController();
+  TextEditingController signUpHandphoneTC = TextEditingController();
+  TextEditingController signUPpasswordTC = TextEditingController();
+  TextEditingController signUpNamaTC = TextEditingController();
+  TextEditingController signUpUsernameTC = TextEditingController();
 
-  FocusNode _signInHandphoneFocus = FocusNode();
-  FocusNode _signInpasswordFocus = FocusNode();
+  FocusNode signInHandphoneFocus = FocusNode();
+  FocusNode signInpasswordFocus = FocusNode();
 
-  FocusNode _signUphandphoneFocus = FocusNode();
-  FocusNode _signUpPasswordFocus = FocusNode();
-  FocusNode _signUpNamaFocus = FocusNode();
-  FocusNode _signUpUsernameFocus = FocusNode();
+  FocusNode signUphandphoneFocus = FocusNode();
+  FocusNode signUpPasswordFocus = FocusNode();
+  FocusNode signUpNamaFocus = FocusNode();
+  FocusNode signUpUsernameFocus = FocusNode();
 
-  loginForm() {
+  Widget loginForm() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.start,
@@ -69,15 +69,15 @@ class _AuthScreenState extends State<AuthScreen> {
                     fontFamily: 'Muli',
                     fontSize: 18,
                   ),
-                  focusNode: _signInHandphoneFocus,
+                  focusNode: signInHandphoneFocus,
                   keyboardType: TextInputType.phone,
                   textInputAction: TextInputAction.next,
-                  controller: _signInHandphoneTC,
+                  controller: signInHandphoneTC,
                   inputFormatters: <TextInputFormatter>[
                     WhitelistingTextInputFormatter(RegExp('[\\+1234567890\\ ]'))
                   ],
                   onFieldSubmitted: (value) {
-                    FocusScope.of(context).requestFocus(_signInpasswordFocus);
+                    FocusScope.of(context).requestFocus(signInpasswordFocus);
                   },
                 ),
                 TextFormField(
@@ -102,10 +102,10 @@ class _AuthScreenState extends State<AuthScreen> {
                     fontFamily: 'Muli',
                     fontSize: 18,
                   ),
-                  focusNode: _signInpasswordFocus,
+                  focusNode: signInpasswordFocus,
                   keyboardType: TextInputType.text,
                   textInputAction: TextInputAction.done,
-                  controller: _signInPasswordTC,
+                  controller: signInPasswordTC,
                   obscureText: isPassShown ? false : true,
                 ),
                 Container(
@@ -139,7 +139,7 @@ class _AuthScreenState extends State<AuthScreen> {
     );
   }
 
-  registerForm() {
+  Widget registerForm() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.start,
@@ -156,16 +156,16 @@ class _AuthScreenState extends State<AuthScreen> {
                   decoration: InputDecoration(
                     labelText: 'Nama Lengkap',
                   ),
-                  focusNode: _signUpNamaFocus,
+                  focusNode: signUpNamaFocus,
                   style: TextStyle(
                     fontFamily: 'Muli',
                     fontSize: 18,
                   ),
                   keyboardType: TextInputType.text,
                   textInputAction: TextInputAction.next,
-                  controller: _signUpNamaTC,
+                  controller: signUpNamaTC,
                   onFieldSubmitted: (_) {
-                    FocusScope.of(context).requestFocus(_signUpUsernameFocus);
+                    FocusScope.of(context).requestFocus(signUpUsernameFocus);
                   },
                 ),
                 TextFormField(
@@ -176,12 +176,12 @@ class _AuthScreenState extends State<AuthScreen> {
                     fontFamily: 'Muli',
                     fontSize: 18,
                   ),
-                  focusNode: _signUpUsernameFocus,
+                  focusNode: signUpUsernameFocus,
                   keyboardType: TextInputType.text,
                   textInputAction: TextInputAction.next,
-                  controller: _signUpUsernameTC,
+                  controller: signUpUsernameTC,
                   onFieldSubmitted: (_) {
-                    FocusScope.of(context).requestFocus(_signUphandphoneFocus);
+                    FocusScope.of(context).requestFocus(signUphandphoneFocus);
                   },
                 ),
                 TextFormField(
@@ -193,15 +193,15 @@ class _AuthScreenState extends State<AuthScreen> {
                     fontFamily: 'Muli',
                     fontSize: 18,
                   ),
-                  focusNode: _signUphandphoneFocus,
+                  focusNode: signUphandphoneFocus,
                   keyboardType: TextInputType.phone,
                   textInputAction: TextInputAction.next,
-                  controller: _signUpHandphoneTC,
+                  controller: signUpHandphoneTC,
                   inputFormatters: <TextInputFormatter>[
                     WhitelistingTextInputFormatter(RegExp('[\\+0-9\\ ]')),
                   ],
                   onFieldSubmitted: (_) {
-                    FocusScope.of(context).requestFocus(_signUpPasswordFocus);
+                    FocusScope.of(context).requestFocus(signUpPasswordFocus);
                   },
                 ),
                 TextFormField(
@@ -226,10 +226,10 @@ class _AuthScreenState extends State<AuthScreen> {
                     fontFamily: 'Muli',
                     fontSize: 18,
                   ),
-                  focusNode: _signUpPasswordFocus,
+                  focusNode: signUpPasswordFocus,
                   keyboardType: TextInputType.text,
                   textInputAction: TextInputAction.done,
-                  controller: _signUPpasswordTC,
+                  controller: signUPpasswordTC,
                   obscureText: isPassShown ? false : true,
                 ),
               ],
@@ -254,18 +254,18 @@ class _AuthScreenState extends State<AuthScreen> {
   @override
   void dispose() {
     super.dispose();
-    _signInHandphoneTC.dispose();
-    _signInPasswordTC.dispose();
-    _signUpHandphoneTC.dispose();
-    _signUPpasswordTC.dispose();
-    _signUpNamaTC.dispose();
-    _signUpUsernameTC.dispose();
-    _signInHandphoneFocus.dispose();
-    _signInpasswordFocus.dispose();
-    _signUphandphoneFocus.dispose();
-    _signUpPasswordFocus.dispose();
-    _signUpNamaFocus.dispose();
-    _signUpUsernameFocus.dispose();
+    signInHandphoneTC.dispose();
+    signInPasswordTC.dispose();
+    signUpHandphoneTC.dispose();
+    signUPpasswordTC.dispose();
+    signUpNamaTC.dispose();
+    signUpUsernameTC.dispose();
+    signInHandphoneFocus.dispose();
+    signInpasswordFocus.dispose();
+    signUphandphoneFocus.dispose();
+    signUpPasswordFocus.dispose();
+    signUpNamaFocus.dispose();
+    signUpUsernameFocus.dispose();
   }
 
   @override
@@ -415,8 +415,8 @@ class _AuthScreenState extends State<AuthScreen> {
   }
 
   Future<void> _signInHandleSubmitted() async {
-    var handphone = _signInHandphoneTC.text.trim();
-    var password = _signInPasswordTC.text.trim();
+    var handphone = signInHandphoneTC.text.trim();
+    var password = signInPasswordTC.text.trim();
     var profile = _userType == 'Thullab' ? '3' : '2';
 
     setState(() => _isLoading = true);
@@ -424,10 +424,12 @@ class _AuthScreenState extends State<AuthScreen> {
     print('$handphone, $password, $profile');
 
     try {
-      await signIn(handphone, password, profile).then((response) {
+      await signIn(handphone, password, profile).then((response) async {
         if (response is Auth) {
-          saveLoginData(handphone, password, profile, response.token);
-          Navigator.of(context)
+          await saveLoginData(handphone, password, profile, response.token);
+
+          print('Token : ${await getToken()}');
+          await Navigator.of(context)
               .pushNamedAndRemoveUntil(MainMenu.routeName, (e) => false);
           print('${response.username} successfully logged in');
         } else {
@@ -438,15 +440,15 @@ class _AuthScreenState extends State<AuthScreen> {
       print(e);
     } finally {
       setState(() => _isLoading = false);
-      _signInPasswordTC.clear();
+      signInPasswordTC.clear();
     }
   }
 
   Future<void> _sighUphandleSubmitted() async {
-    var nama = _signUpNamaTC.text.trim();
-    var username = _signUpUsernameTC.text.trim();
-    var phone = _signUpHandphoneTC.text.trim();
-    var password = _signUPpasswordTC.text.trim();
+    var nama = signUpNamaTC.text.trim();
+    var username = signUpUsernameTC.text.trim();
+    var phone = signUpHandphoneTC.text.trim();
+    var password = signUPpasswordTC.text.trim();
     var profile = _userType == 'Thullab' ? '3' : '2';
 
     setState(() => _isLoading = true);
@@ -479,11 +481,11 @@ class _AuthScreenState extends State<AuthScreen> {
       print(e);
     } finally {
       setState(() => _isLoading = false);
-      _signInPasswordTC.clear();
+      signInPasswordTC.clear();
     }
   }
 
-  showCustomDialog(String message) {
+  void showCustomDialog(String message) {
     showDialog(
       context: context,
       child: AlertDialog(

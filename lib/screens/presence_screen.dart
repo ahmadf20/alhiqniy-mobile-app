@@ -38,7 +38,7 @@ class _PresenceScreenState extends State<PresenceScreen> {
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height,
           child: Padding(
-            padding: const EdgeInsets.only(left: 25.0),
+            padding: const EdgeInsets.only(left: 40.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
@@ -48,7 +48,7 @@ class _PresenceScreenState extends State<PresenceScreen> {
                     bottom: 15,
                   ),
                   child: Transform.translate(
-                    offset: Offset(-15, 0),
+                    offset: Offset(-30, 0),
                     child: BackButton(
                       onPressed: () {
                         Navigator.of(context).pop();
@@ -57,18 +57,11 @@ class _PresenceScreenState extends State<PresenceScreen> {
                   ),
                 ),
                 Text(
-                  'Kehadiran',
+                  'Kehadiran\nThullab',
                   style: TextStyle(
                     fontFamily: 'Muli',
-                    fontSize: 34,
-                    color: Theme.of(context).primaryColor,
-                  ),
-                ),
-                Text(
-                  'Thullab',
-                  style: TextStyle(
-                    fontFamily: 'Muli',
-                    fontSize: 40,
+                    fontSize: 36,
+                    fontWeight: FontWeight.w600,
                     color: Theme.of(context).primaryColor,
                   ),
                 ),
@@ -83,22 +76,36 @@ class _PresenceScreenState extends State<PresenceScreen> {
                               bottom: 5,
                               right: 35,
                             ),
-                            child: Text(
-                              'Jika halaqah telah dirasa siap, \nsilahkan ketua kelas halaqah menekan tombol',
-                              style: TextStyle(
-                                fontFamily: 'OpenSans',
-                                fontSize: 14,
-                                color: Colors.grey,
+                            child: RichText(
+                              text: TextSpan(
+                                text:
+                                    'Jika halaqah telah dirasa siap, silahkan ketua kelas halaqah menekan tombol ',
+                                style: TextStyle(
+                                  fontFamily: 'OpenSans',
+                                  fontSize: 14,
+                                  color: Colors.grey,
+                                  height: 1.75,
+                                ),
+                                children: [
+                                  TextSpan(
+                                    text: ' \'check box\' ',
+                                    style: TextStyle(
+                                      color: Theme.of(context).primaryColor,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  TextSpan(
+                                    text: ' dan ',
+                                  ),
+                                  TextSpan(
+                                    text: ' \'Masuki Halaqah\'',
+                                    style: TextStyle(
+                                      color: Theme.of(context).primaryColor,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ],
                               ),
-                            ),
-                          ),
-                          Text(
-                            '\'Masuki Halaqah\'',
-                            style: TextStyle(
-                              fontFamily: 'Muli',
-                              fontSize: 16,
-                              color: Theme.of(context).primaryColor,
-                              fontWeight: FontWeight.bold,
                             ),
                           ),
                         ],
@@ -122,9 +129,11 @@ class _PresenceScreenState extends State<PresenceScreen> {
                       children: <Widget>[
                         Text(
                           _userType == UserType.thullab
-                              ? 'MASUKI HALAQAH'
+                              ? 'MASUK HALAQAH'
                               : 'MULAI HALAQAH',
                           style: TextStyle(
+                            fontFamily: 'Muli',
+                            fontWeight: FontWeight.w700,
                             color: Theme.of(context).primaryColor,
                             fontSize: 20,
                           ),

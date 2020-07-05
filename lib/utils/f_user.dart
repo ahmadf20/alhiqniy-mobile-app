@@ -70,9 +70,9 @@ Future<dynamic> signUp(String nama, String username, String phone,
   }
 }
 
-logOut(BuildContext context) async {
+void logOut(BuildContext context) async {
   await clearLoginData();
-  Navigator.of(context)
+  await Navigator.of(context)
       .pushNamedAndRemoveUntil(IntroScreen.routeName, (e) => false);
 }
 

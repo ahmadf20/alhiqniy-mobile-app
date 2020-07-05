@@ -10,7 +10,6 @@ import 'package:flutter/services.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 final Geolocator geolocator = Geolocator()..forceAndroidLocationManager;
 Position currentPosition;
@@ -18,8 +17,6 @@ Position currentPosition;
 final url = 'https://madrasah-online-api.herokuapp.com';
 
 void main() {
-  // ignore: invalid_use_of_visible_for_testing_member
-  SharedPreferences.setMockInitialValues({});
   initializeDateFormatting().then((_) => runApp(MyApp()));
 }
 

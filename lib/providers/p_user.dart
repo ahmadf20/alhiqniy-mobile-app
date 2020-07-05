@@ -5,9 +5,9 @@ enum UserType { mudaris, thullab }
 class UserProvider extends ChangeNotifier {
   UserType _userType;
 
-  get userType => _userType;
-  set(UserType userType) {
-    this._userType = userType;
+  UserType get userType => _userType;
+  void set(UserType userType) {
+    _userType = userType;
     notifyListeners();
   }
 }

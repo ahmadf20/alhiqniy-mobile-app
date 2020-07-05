@@ -7,6 +7,8 @@ import 'package:alhiqniy/models/models.dart';
 import 'package:alhiqniy/models/prayer_times.dart';
 import 'package:alhiqniy/providers/p_prayer_times.dart';
 import 'package:alhiqniy/providers/p_user.dart';
+import 'package:alhiqniy/screens/choose_mudaris_screen.dart';
+import 'package:alhiqniy/screens/detail_halaqah_screen.dart';
 import 'package:alhiqniy/screens/jadwal_sholat_screen.dart';
 import 'package:alhiqniy/screens/maktabah_screen.dart';
 import 'package:alhiqniy/screens/presence_screen.dart';
@@ -77,7 +79,7 @@ class _HomeScreenState extends State<HomeScreen> {
         '${DateTime.now().toString().substring(0, 10)} $time');
   }
 
-  _getAddressFromLatLng() async {
+  void _getAddressFromLatLng() async {
     try {
       List<Placemark> p = await geolocator.placemarkFromCoordinates(
           currentPosition.latitude, currentPosition.longitude);
@@ -94,7 +96,7 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   }
 
-  _launchYoutube() async {
+  void _launchYoutube() async {
     if (Platform.isIOS) {
       if (await canLaunch(
           'youtube://www.youtube.com/channel/UCqaStq920t8f3rWzNuOuW5A')) {
@@ -123,7 +125,7 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   }
 
-  _launchWeb() async {
+  void _launchWeb() async {
     if (Platform.isIOS) {
       if (await canLaunch('https://www.alhiqniy.com')) {
         await launch('https://www.alhiqniy.com');
@@ -167,216 +169,234 @@ class _HomeScreenState extends State<HomeScreen> {
 
     print(Provider.of<UserProvider>(context, listen: false).userType);
     print(_nextprayerName);
-    return AnnotatedRegion(
-      value: mySystemUIOverlaySyle.copyWith(
-          statusBarIconBrightness: Brightness.light),
-      child: SafeArea(
-        top: false,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Container(
-              constraints: BoxConstraints(minHeight: 249),
-              width: MediaQuery.of(context).size.width,
-              child: Stack(
-                children: <Widget>[
-                  Container(
-                    width: MediaQuery.of(context).size.width,
-                    constraints: BoxConstraints(minHeight: 260),
-                    child: Image.asset(
-                      'assets/images/cover.png',
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                  Container(
-                    padding: EdgeInsets.only(
-                      left: 15,
-                      top: 40,
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        SizedBox(
-                          height: 25,
-                        ),
-                        // (_todayPrayerTimes == null ||
-                        //         _todayPrayerTimes.items.length < 0)
-                        //     ? Center(child: CircularProgressIndicator())
-                        //     : Padding(
-                        //         padding: const EdgeInsets.only(bottom: 10.0),
-                        //         child: Row(
-                        //           children: <Widget>[
-                        //             Spacer(),
-                        //             PrayerTimesCard(
-                        //               title: 'Subuh',
-                        //               image: 'subuh',
-                        //               time: _todayPrayerTimes.items[0].fajr
-                        //                   .toUpperCase(),
-                        //             ),
-                        //             PrayerTimesCard(
-                        //               title: 'Syuruq',
-                        //               image: 'syuruq',
-                        //               time: _todayPrayerTimes.items[0].shurooq
-                        //                   .toUpperCase(),
-                        //             ),
-                        //             PrayerTimesCard(
-                        //               title: 'Dzuhur',
-                        //               image: 'dzuhur',
-                        //               time: _todayPrayerTimes.items[0].dhuhr
-                        //                   .toUpperCase(),
-                        //             ),
-                        //             PrayerTimesCard(
-                        //               title: 'Ashar',
-                        //               image: 'subuh',
-                        //               time: _todayPrayerTimes.items[0].asr
-                        //                   .toUpperCase(),
-                        //             ),
-                        //             PrayerTimesCard(
-                        //               title: 'Maghrib',
-                        //               image: 'maghrib',
-                        //               time: _todayPrayerTimes.items[0].maghrib
-                        //                   .toUpperCase(),
-                        //             ),
-                        //             PrayerTimesCard(
-                        //               title: 'Isya\'',
-                        //               image: 'isya',
-                        //               time: _todayPrayerTimes.items[0].isha
-                        //                   .toUpperCase(),
-                        //             ),
-                        //           ],
-                        //         ),
-                        //       ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 25, right: 15),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: <Widget>[
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Text(
-                          '${DateFormat('EEEE, \nd MMMM y', 'id').format(DateTime.now())}',
-                          style: TextStyle(
-                            fontFamily: 'Muli',
-                            color: Theme.of(context).primaryColor,
-                            fontSize: 20,
-                            fontWeight: FontWeight.w700,
-                            height: 1.5,
-                          ),
-                        ),
-                        Text(
-                          _currentAddress,
-                          style: TextStyle(
-                            fontFamily: 'OpenSans',
-                            color: Theme.of(context).primaryColor,
-                            fontSize: 12,
-                            // fontWeight: FontWeight.w700,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Container(
-                    height: 40,
-                    child: VerticalDivider(
-                      thickness: 1,
-                      color: Colors.grey,
-                      width: 50,
-                    ),
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Text(
-                        'Waktu $_nextprayerName',
-                        style: TextStyle(
-                          fontFamily: 'Montserrat',
-                          color: Theme.of(context).primaryColor,
-                          fontWeight: FontWeight.w600,
-                          fontSize: 14,
-                        ),
-                      ),
-                      Text(
-                        '45.45',
-                        // '$_nextPrayerTime',
-                        style: TextStyle(
-                          fontFamily: 'Montserrat',
-                          color: Theme.of(context).primaryColor,
-                          fontSize: 35,
-                        ),
-                      ),
-                    ],
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 5, left: 5),
-                    child: GestureDetector(
-                      onTap: () {},
-                      child: Icon(
-                        Icons.more_vert,
-                        size: 25,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Container(
-              height: 120,
-              padding: EdgeInsets.only(top: 20),
-              child: SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Row(
+    return Scaffold(
+      backgroundColor: Colors.white,
+      floatingActionButton: FloatingActionButton(
+        onPressed: () =>
+            Navigator.of(context).pushNamed(ChooseMudaris.routeName),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12),
+        ),
+        backgroundColor: Color(0xFF3ACCE1),
+        child: Icon(Icons.add),
+      ),
+      body: AnnotatedRegion(
+        value: mySystemUIOverlaySyle.copyWith(
+            statusBarIconBrightness: Brightness.light),
+        child: SafeArea(
+          top: false,
+          child: ListView(
+            padding: EdgeInsets.all(0),
+            children: <Widget>[
+              Container(
+                constraints: BoxConstraints(minHeight: 249),
+                width: MediaQuery.of(context).size.width,
+                child: Stack(
                   children: <Widget>[
-                    CircleCardMenu(
-                      icon: 'channel',
-                      text: 'Website',
-                      onPressed: _launchWeb,
+                    Container(
+                      width: MediaQuery.of(context).size.width,
+                      constraints: BoxConstraints(minHeight: 260),
+                      child: Image.asset(
+                        'assets/images/cover.png',
+                        fit: BoxFit.cover,
+                      ),
                     ),
-                    CircleCardMenu(
-                      icon: 'channel',
-                      text: 'Channel',
-                      onPressed: _launchYoutube,
-                    ),
-                    CircleCardMenu(
-                      icon: 'makhtabah',
-                      text: 'Makhtabah',
-                      onPressed: () {
-                        Navigator.of(context)
-                            .pushNamed(MaktabahScreen.routName);
-                      },
-                    ),
-                    CircleCardMenu(
-                      icon: 'alquran',
-                      text: 'Al-Qur\'an',
-                      onPressed: () {},
-                    ),
-                    CircleCardMenu(
-                      icon: 'kamus',
-                      text: 'Kamus',
-                      onPressed: () {},
-                    ),
-                    CircleCardMenu(
-                      icon: 'jadwal_sholat',
-                      text: 'Jadwal Sholat',
-                      onPressed: () => Navigator.of(context)
-                          .pushNamed(JadwalSholatScreen.routeName),
+                    Container(
+                      padding: EdgeInsets.only(
+                        left: 15,
+                        top: 40,
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          SizedBox(
+                            height: 25,
+                          ),
+                          // (_todayPrayerTimes == null ||
+                          //         _todayPrayerTimes.items.length < 0)
+                          //     ? Center(child: CircularProgressIndicator())
+                          //     : Padding(
+                          //         padding: const EdgeInsets.only(bottom: 10.0),
+                          //         child: Row(
+                          //           children: <Widget>[
+                          //             Spacer(),
+                          //             PrayerTimesCard(
+                          //               title: 'Subuh',
+                          //               image: 'subuh',
+                          //               time: _todayPrayerTimes.items[0].fajr
+                          //                   .toUpperCase(),
+                          //             ),
+                          //             PrayerTimesCard(
+                          //               title: 'Syuruq',
+                          //               image: 'syuruq',
+                          //               time: _todayPrayerTimes.items[0].shurooq
+                          //                   .toUpperCase(),
+                          //             ),
+                          //             PrayerTimesCard(
+                          //               title: 'Dzuhur',
+                          //               image: 'dzuhur',
+                          //               time: _todayPrayerTimes.items[0].dhuhr
+                          //                   .toUpperCase(),
+                          //             ),
+                          //             PrayerTimesCard(
+                          //               title: 'Ashar',
+                          //               image: 'subuh',
+                          //               time: _todayPrayerTimes.items[0].asr
+                          //                   .toUpperCase(),
+                          //             ),
+                          //             PrayerTimesCard(
+                          //               title: 'Maghrib',
+                          //               image: 'maghrib',
+                          //               time: _todayPrayerTimes.items[0].maghrib
+                          //                   .toUpperCase(),
+                          //             ),
+                          //             PrayerTimesCard(
+                          //               title: 'Isya\'',
+                          //               image: 'isya',
+                          //               time: _todayPrayerTimes.items[0].isha
+                          //                   .toUpperCase(),
+                          //             ),
+                          //           ],
+                          //         ),
+                          //       ),
+                        ],
+                      ),
                     ),
                   ],
                 ),
               ),
-            ),
-            Expanded(
-              child: CardListHalaqah(),
-            ),
-          ],
+              Padding(
+                padding: const EdgeInsets.only(left: 25, right: 15),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: <Widget>[
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Text(
+                            '${DateFormat('EEEE, \nd MMMM y', 'id').format(DateTime.now())}',
+                            style: TextStyle(
+                              fontFamily: 'Muli',
+                              color: Theme.of(context).primaryColor,
+                              fontSize: 20,
+                              fontWeight: FontWeight.w700,
+                              height: 1.5,
+                            ),
+                          ),
+                          Text(
+                            _currentAddress,
+                            style: TextStyle(
+                              fontFamily: 'OpenSans',
+                              color: Theme.of(context).primaryColor,
+                              fontSize: 12,
+                              // fontWeight: FontWeight.w700,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Container(
+                      height: 40,
+                      child: VerticalDivider(
+                        thickness: 1,
+                        color: Colors.grey,
+                        width: 50,
+                      ),
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Text(
+                          'Waktu $_nextprayerName',
+                          style: TextStyle(
+                            fontFamily: 'Montserrat',
+                            color: Theme.of(context).primaryColor,
+                            fontWeight: FontWeight.w600,
+                            fontSize: 14,
+                          ),
+                        ),
+                        Text(
+                          '45.45',
+                          // '$_nextPrayerTime',
+                          style: TextStyle(
+                            fontFamily: 'Montserrat',
+                            color: Theme.of(context).primaryColor,
+                            fontSize: 35,
+                          ),
+                        ),
+                      ],
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 5, left: 5),
+                      child: GestureDetector(
+                        onTap: () {},
+                        child: Icon(
+                          Icons.more_vert,
+                          size: 25,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Container(
+                height: 120,
+                padding: EdgeInsets.only(top: 20),
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    children: <Widget>[
+                      CircleCardMenu(
+                        icon: 'channel',
+                        text: 'Website',
+                        onPressed: _launchWeb,
+                      ),
+                      CircleCardMenu(
+                        icon: 'channel',
+                        text: 'Channel',
+                        onPressed: _launchYoutube,
+                      ),
+                      CircleCardMenu(
+                        icon: 'makhtabah',
+                        text: 'Makhtabah',
+                        onPressed: () {
+                          Navigator.of(context)
+                              .pushNamed(MaktabahScreen.routName);
+                        },
+                      ),
+                      CircleCardMenu(
+                        icon: 'alquran',
+                        text: 'Al-Qur\'an',
+                        onPressed: () {},
+                      ),
+                      CircleCardMenu(
+                        icon: 'kamus',
+                        text: 'Kamus',
+                        onPressed: () {},
+                      ),
+                      CircleCardMenu(
+                        icon: 'jadwal_sholat',
+                        text: 'Jadwal Sholat',
+                        onPressed: () => Navigator.of(context)
+                            .pushNamed(JadwalSholatScreen.routeName),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.fromLTRB(20, 5, 0, 0),
+                child: Text('Jadwal Halaqah',
+                    style: TextStyle(
+                      fontFamily: 'Muli',
+                      fontSize: 14,
+                      fontWeight: FontWeight.w600,
+                    )),
+              ),
+              CardListHalaqah(),
+            ],
+          ),
         ),
       ),
     );
@@ -482,6 +502,8 @@ class CardListHalaqah extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
+      shrinkWrap: true,
+      physics: NeverScrollableScrollPhysics(),
       itemCount: listMudarisDummy.length,
       itemBuilder: _userType == UserType.thullab
           ? _buildCardListItemThullab
@@ -492,106 +514,105 @@ class CardListHalaqah extends StatelessWidget {
   Widget _buildCardListItemThullab(BuildContext context, int index) {
     return GestureDetector(
       onTap: index == 0
-          ? () => Navigator.of(context).pushNamed(PresenceScreen.routeName)
+          ? () => Navigator.of(context).pushNamed(DetailHalaqahScreen.routeName)
           : null,
       child: Padding(
         padding: EdgeInsets.fromLTRB(
-            15, 7.5, 15, (listMudarisDummy.length - 1) == index ? 40 : 7.5),
+            15, 10, 15, (listMudarisDummy.length - 1) == index ? 40 : 7.5),
         child: Container(
-          height: 92,
+          // height: 92,
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(10),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black12,
-                blurRadius: 6,
-                offset: Offset(0, 6),
-              ),
-            ],
+            boxShadow: index != 0
+                ? null
+                : [
+                    BoxShadow(
+                      color: Colors.black12,
+                      blurRadius: 10,
+                      offset: Offset(0, 4),
+                    ),
+                  ],
           ),
           child: Row(
             children: <Widget>[
-              Image.asset('assets/images/list1.png'),
+              Container(
+                decoration: BoxDecoration(
+                  boxShadow: index == 0
+                      ? null
+                      : [
+                          BoxShadow(
+                            color: Colors.black12,
+                            blurRadius: 15,
+                            offset: Offset(5, 9),
+                          ),
+                        ],
+                ),
+                child: Image.asset(
+                  'assets/images/list1.png',
+                  scale: index == 0 ? 3 : 5,
+                  // height:
+                  //     MediaQuery.of(context).size.width / (index == 0 ? 3 : 5),
+                ),
+              ),
               Padding(
                 padding: const EdgeInsets.only(
-                  top: 15.0,
+                  top: 15,
                   left: 22,
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Text(
-                      listMudarisDummy[index].halaqah,
-                      style: TextStyle(
-                        fontFamily: 'Muli',
-                        fontSize: 18,
-                      ),
-                    ),
-                    SizedBox(height: 5),
-                    Text(
                       listMudarisDummy[index].nama,
                       style: TextStyle(
-                        fontFamily: 'Muli',
+                        fontFamily: 'OpenSans',
                         fontSize: 12,
                       ),
                     ),
                     SizedBox(height: 2.5),
+                    Text(
+                      listMudarisDummy[index].halaqah,
+                      style: TextStyle(
+                        fontFamily: 'Muli',
+                        fontSize: 18,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                    SizedBox(height: 5),
                     index == 0
-                        ? RichText(
-                            text: TextSpan(
-                                text: '10 Januari 2020 | ',
-                                style: TextStyle(
-                                    fontFamily: 'Muli',
-                                    fontSize: 10,
-                                    color: Colors.black),
-                                children: <TextSpan>[
-                                  TextSpan(
-                                      text: 'Live',
-                                      style: TextStyle(
-                                        color: Colors.red,
-                                      ))
-                                ]),
+                        ? Padding(
+                            padding: const EdgeInsets.only(right: 15.0),
+                            child: Row(
+                              children: <Widget>[
+                                Image.asset(
+                                  'assets/icons/live.png',
+                                  height: 25,
+                                ),
+                                SizedBox(width: 5),
+                                Text(
+                                  'Live Sekarang',
+                                  style: TextStyle(
+                                    fontFamily: 'OpenSans',
+                                    fontSize: 12,
+                                    color: Colors.red,
+                                  ),
+                                ),
+                              ],
+                            ),
                           )
                         : Text(
                             '10 Januari 2020 | 10:00 WIB',
                             style: TextStyle(
-                              fontFamily: 'Muli',
-                              fontSize: 10,
+                              fontFamily: 'OpenSans',
+                              fontSize: 12,
+                              color: Colors.grey,
                             ),
                           ),
                   ],
                 ),
               ),
               Spacer(),
-              index == 0
-                  ? Row(
-                      children: <Widget>[
-                        Padding(
-                          padding: const EdgeInsets.only(right: 15.0),
-                          child: Image.asset(
-                            'assets/icons/live.png',
-                            height: 17,
-                          ),
-                        ),
-                        Container(
-                          width: 30,
-                          height: double.maxFinite,
-                          decoration: BoxDecoration(
-                            color: Theme.of(context).primaryColor,
-                            borderRadius: BorderRadius.only(
-                              topRight: Radius.circular(10),
-                              bottomRight: Radius.circular(10),
-                            ),
-                          ),
-                          child: Icon(
-                            Icons.arrow_forward,
-                            color: Colors.white,
-                          ),
-                        ),
-                      ],
-                    )
-                  : SizedBox.shrink(),
             ],
           ),
         ),
@@ -602,42 +623,63 @@ class CardListHalaqah extends StatelessWidget {
   Widget _buildCardListItemMudaris(BuildContext context, int index) {
     return GestureDetector(
       onTap: index == 0
-          ? () => Navigator.of(context).pushNamed(PresenceScreen.routeName)
+          ? () => Navigator.of(context).pushNamed(DetailHalaqahScreen.routeName)
           : null,
       child: Padding(
         padding: EdgeInsets.fromLTRB(
-            15, 7.5, 15, (listMudarisDummy.length - 1) == index ? 40 : 7.5),
+            15, 10, 15, (listMudarisDummy.length - 1) == index ? 40 : 7.5),
         child: Container(
-          height: index == 0 ? 125 : 75,
+          // height: 92,
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(10),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black12,
-                blurRadius: 6,
-                offset: Offset(0, 6),
-              ),
-            ],
+            boxShadow: index != 0
+                ? null
+                : [
+                    BoxShadow(
+                      color: Colors.black12,
+                      blurRadius: 10,
+                      offset: Offset(0, 4),
+                    ),
+                  ],
           ),
           child: Row(
             children: <Widget>[
-              Image.asset('assets/images/list1.png'),
+              Container(
+                decoration: BoxDecoration(
+                  boxShadow: index == 0
+                      ? null
+                      : [
+                          BoxShadow(
+                            color: Colors.black12,
+                            blurRadius: 15,
+                            offset: Offset(5, 9),
+                          ),
+                        ],
+                ),
+                child: Image.asset(
+                  'assets/images/list1.png',
+                  scale: index == 0 ? 3 : 5,
+                  // height:
+                  //     MediaQuery.of(context).size.width / (index == 0 ? 3 : 5),
+                ),
+              ),
               Padding(
                 padding: const EdgeInsets.only(
+                  top: 15,
                   left: 22,
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     Text(
                       listMudarisDummy[index].nama,
                       style: TextStyle(
-                        fontFamily: 'Muli',
+                        fontFamily: 'OpenSans',
                         fontSize: 12,
                       ),
                     ),
+                    SizedBox(height: 2.5),
                     Text(
                       listMudarisDummy[index].halaqah,
                       style: TextStyle(
@@ -646,24 +688,26 @@ class CardListHalaqah extends StatelessWidget {
                         fontWeight: FontWeight.w600,
                       ),
                     ),
+                    SizedBox(height: 5),
                     index == 0
-                        ? Container(
-                            margin: EdgeInsets.only(top: 7.5),
-                            padding: EdgeInsets.symmetric(
-                              horizontal: 10,
-                              vertical: 2,
-                            ),
-                            decoration: BoxDecoration(
-                              color: Color(0xFF05BE66),
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            child: Text(
-                              'Thulab telah siap',
-                              style: TextStyle(
-                                fontSize: 10,
-                                fontFamily: 'Muli',
-                                color: Colors.white,
-                              ),
+                        ? Padding(
+                            padding: const EdgeInsets.only(right: 15.0),
+                            child: Row(
+                              children: <Widget>[
+                                Image.asset(
+                                  'assets/icons/live.png',
+                                  height: 25,
+                                ),
+                                SizedBox(width: 5),
+                                Text(
+                                  'Live Sekarang',
+                                  style: TextStyle(
+                                    fontFamily: 'OpenSans',
+                                    fontSize: 12,
+                                    color: Colors.red,
+                                  ),
+                                ),
+                              ],
                             ),
                           )
                         : Text(

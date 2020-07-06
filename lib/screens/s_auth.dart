@@ -5,6 +5,7 @@ import 'package:alhiqniy/providers/p_user.dart';
 import 'package:alhiqniy/screens/s_main_menu.dart';
 import 'package:alhiqniy/screens/s_verif_mudaris_list.dart';
 import 'package:alhiqniy/utils/f_user.dart';
+import 'package:alhiqniy/widgets/w_button.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:alhiqniy/screens/s_choose_mudaris.dart';
@@ -368,42 +369,18 @@ class _AuthScreenState extends State<AuthScreen> {
                         SizedBox(
                           height: 75,
                         ),
-                        Container(
-                          height: 47,
-                          margin: EdgeInsets.only(
-                            bottom: 100,
-                            right: 10,
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: <Widget>[
-                              Text(
-                                selectedMenu == WidgetMarker.login
-                                    ? 'LOG IN'
-                                    : 'REGISTER',
-                                style: TextStyle(
-                                  fontFamily: 'Muli',
-                                  fontWeight: FontWeight.bold,
-                                  color: Theme.of(context).primaryColor,
-                                  fontSize: 20,
-                                ),
-                              ),
-                              FlatButton(
-                                shape: CircleBorder(),
-                                child: Image.asset(
-                                  'assets/icons/next_button.png',
-                                  width: 47,
-                                ),
-                                onPressed: () {
-                                  if (selectedMenu == WidgetMarker.login) {
-                                    _signInHandleSubmitted();
-                                  } else {
-                                    _sighUphandleSubmitted();
-                                  }
-                                },
-                              ),
-                            ],
-                          ),
+                        MainButton(
+                          text: selectedMenu == WidgetMarker.login
+                              ? 'LOG IN'
+                              : 'REGISTER',
+                          image: 'assets/icons/arrow_right.png',
+                          onPressed: () {
+                            if (selectedMenu == WidgetMarker.login) {
+                              _signInHandleSubmitted();
+                            } else {
+                              _sighUphandleSubmitted();
+                            }
+                          },
                         ),
                       ],
                     ),
@@ -426,7 +403,8 @@ class _AuthScreenState extends State<AuthScreen> {
     try {
       await signIn(handphone, password, profile).then((response) async {
         if (response is User) {
-          await saveLoginData(handphone, password, profile, response.token);
+          await saveLoginData(response.token);
+          Provider.of<UserProvider>(context, listen: false).setUser(response);
 
           print('Token : ${await getToken()}');
           await Navigator.of(context)
@@ -458,7 +436,8 @@ class _AuthScreenState extends State<AuthScreen> {
     try {
       await signUp(nama, username, phone, password, profile).then((response) {
         if (response is User) {
-          saveLoginData(phone, password, profile, response.token);
+          saveLoginData(response.token);
+          Provider.of<UserProvider>(context, listen: false).setUser(response);
 
           // TODO: make it to be able to go back to the auth_screen, check the user id if it has already registered. Then show choose_mudaris screen when they first login (check in the database if user has chose any mudaris)
 

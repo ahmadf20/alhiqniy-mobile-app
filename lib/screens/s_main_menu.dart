@@ -1,8 +1,11 @@
+import 'package:alhiqniy/providers/p_user.dart';
 import 'package:alhiqniy/screens/s_account_setting.dart';
 import 'package:alhiqniy/screens/s_chat.dart';
 import 'package:alhiqniy/screens/s_home.dart';
 import 'package:alhiqniy/screens/s_notification.dart';
+import 'package:alhiqniy/widgets/w_loading_indicator.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class MainMenu extends StatefulWidget {
   static const routeName = '/main_menu';
@@ -29,7 +32,15 @@ class _MainMenuState extends State<MainMenu> {
         return NotificationScreen();
         break;
       case 4:
-        return AccountSetting();
+        var provider = Provider.of<UserProvider>(context);
+        if (provider.user == null) provider.fetchUserData(context);
+        return provider.user == null
+            ? Scaffold(
+                body: Center(
+                  child: loadingIndicator(),
+                ),
+              )
+            : AccountSetting();
         break;
       default:
         return HomeScreen();

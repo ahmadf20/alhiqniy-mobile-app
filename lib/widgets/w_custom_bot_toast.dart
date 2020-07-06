@@ -1,27 +1,15 @@
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 
-import 'f_user.dart';
-
-Widget showLoading() {
-  return Center(
-    child: CircularProgressIndicator(
-      valueColor: AlwaysStoppedAnimation<Color>(
-        Color(0xFF063C65),
-      ),
-    ),
-  );
-}
-
-void customBotToastText(String text) {
+void myBotToastText(text) {
   BotToast.showText(
-    text: text,
+    text: text.toString(),
     textStyle: TextStyle(
       fontFamily: 'OpenSans',
       color: Colors.white,
       fontSize: 12,
     ),
-    duration: Duration(seconds: 5),
+    duration: Duration(seconds: 3),
     borderRadius: BorderRadius.all(Radius.circular(100)),
     clickClose: true,
   );

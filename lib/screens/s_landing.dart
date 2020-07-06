@@ -90,7 +90,7 @@ class _IntroScreenState extends State<IntroScreen> {
                       color: Color(0xFF2999B2),
                       onPressed: () {
                         Provider.of<UserProvider>(context, listen: false)
-                            .set(UserType.thullab);
+                            .setUserType(UserType.thullab);
                         Navigator.of(context).pushNamed(AuthScreen.routeName);
                       },
                       child: Text(
@@ -117,7 +117,7 @@ class _IntroScreenState extends State<IntroScreen> {
                           color: Colors.white.withAlpha(20),
                           onPressed: () {
                             Provider.of<UserProvider>(context, listen: false)
-                                .set(UserType.mudaris);
+                                .setUserType(UserType.mudaris);
                             Navigator.of(context)
                                 .pushNamed(AuthScreen.routeName);
                           },

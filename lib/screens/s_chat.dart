@@ -1,3 +1,4 @@
+import 'package:alhiqniy/widgets/w_app_bar.dart';
 import 'package:flutter/material.dart';
 
 class ChatScreen extends StatelessWidget {
@@ -16,36 +17,16 @@ class ChatScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.only(
-                  left: 8,
-                  top: 8,
-                ),
-                child: BackButton(
-                  onPressed: () {
-                    Navigator.of(context).maybePop();
-                  },
-                ),
-              ),
+              MyAppBar(title: 'Pesan'),
               Container(
                 padding: EdgeInsets.only(
                   left: 40,
-                  top: 10,
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    Text(
-                      'Pesan',
-                      style: TextStyle(
-                        fontFamily: 'Muli',
-                        fontSize: 36,
-                        fontWeight: FontWeight.w600,
-                        color: Theme.of(context).primaryColor,
-                      ),
-                    ),
                     Padding(
-                      padding: const EdgeInsets.only(top: 40),
+                      padding: const EdgeInsets.only(top: 25),
                       child: TextField(
                         decoration: InputDecoration(
                           contentPadding: EdgeInsets.only(

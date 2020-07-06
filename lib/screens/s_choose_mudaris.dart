@@ -1,8 +1,12 @@
 import 'dart:async';
 
+import 'package:alhiqniy/main.dart';
 import 'package:alhiqniy/models/m_mudaris.dart';
 import 'package:alhiqniy/screens/s_main_menu.dart';
 import 'package:alhiqniy/utils/f_mudaris.dart';
+import 'package:alhiqniy/widgets/w_app_bar.dart';
+import 'package:alhiqniy/widgets/w_button.dart';
+import 'package:alhiqniy/widgets/w_loading_indicator.dart';
 import 'package:flutter/material.dart';
 
 class ChooseMudaris extends StatefulWidget {
@@ -24,11 +28,11 @@ class _ChooseMudarisState extends State<ChooseMudaris> {
       await getAllMudaris().then((response) {
         if (response is List<Mudaris>) {
           listMudaris = response;
-          setState(() {});
+          if (mounted) setState(() {});
         }
       });
     } catch (e) {
-      print(e.toString());
+      logger.e(e);
     }
   }
 
@@ -43,106 +47,45 @@ class _ChooseMudarisState extends State<ChooseMudaris> {
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.only(left: 25.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.only(
-                  top: 30,
-                  bottom: 15,
-                ),
-                child: Transform.translate(
-                  offset: Offset(-15, 0),
-                  child: BackButton(
-                    onPressed: () {
-                      Navigator.of(context).maybePop();
-                    },
-                  ),
-                ),
-              ),
-
-              Text(
-                'Pilih\nHalaqah',
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            MyAppBar(title: 'Pilih:Halaqah'),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(40, 15, 25, 30),
+              child: Text(
+                'Antum harus memilih Halaqah atau Ustadz untuk mengikuti halaqah di Madrash Online Alhiqniy',
                 style: TextStyle(
-                  fontFamily: 'Muli',
-                  fontSize: 36,
-                  color: Theme.of(context).primaryColor,
-                  fontWeight: FontWeight.w600,
+                  fontFamily: 'OpenSans',
+                  fontSize: 14,
+                  color: Colors.grey,
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.only(
-                  top: 15,
-                  right: 25,
-                  bottom: 30,
-                ),
-                child: Text(
-                  'Antum harus memilih Halaqah atau Ustadz untuk mengikuti halaqah di Madrash Online Alhiqniy',
-                  style: TextStyle(
-                    fontFamily: 'OpenSans',
-                    fontSize: 14,
-                    color: Colors.grey,
-                  ),
-                ),
-              ),
-              //listview
-              Expanded(
-                child: listMudaris == null
-                    ? Center(
-                        child: IconButton(
-                          icon: Icon(Icons.refresh),
-                          onPressed: getMudarisList,
-                        ),
-                      )
-                    : MudarisCardList(
-                        list: listMudaris,
-                        listSelectedMudaris: listSelectedMudaris,
-                        onListChange: (value) {
-                          setState(() {
-                            listSelectedMudaris = value;
-                          });
-                        },
-                      ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(top: 10.0),
-                child: Container(
-                  height: 47,
-                  margin: EdgeInsets.only(
-                    bottom: 50,
-                    right: 10,
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: <Widget>[
-                      Text(
-                        'KONFIRMASI',
-                        style: TextStyle(
-                          color: Theme.of(context).primaryColor,
-                          fontSize: 20,
-                        ),
-                      ),
-                      FlatButton(
-                        shape: CircleBorder(),
-                        child: Image.asset(
-                          'assets/icons/next_button.png',
-                          width: 47,
-                        ),
-                        onPressed: listSelectedMudaris.isEmpty
-                            ? null
-                            : () {
-                                Navigator.of(context)
-                                    .pushNamed(MainMenu.routeName);
-                              },
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ],
-          ),
+            ),
+            //listview
+            Expanded(
+              child: listMudaris == null
+                  ? Center(child: loadingIndicator())
+                  : MudarisCardList(
+                      list: listMudaris,
+                      listSelectedMudaris: listSelectedMudaris,
+                      onListChange: (value) {
+                        setState(() {
+                          listSelectedMudaris = value;
+                        });
+                      },
+                    ),
+            ),
+            MainButton(
+              text: 'KONFIRMASI',
+              image: 'assets/icons/arrow_right.png',
+              onPressed: listSelectedMudaris.isEmpty
+                  ? null
+                  : () {
+                      Navigator.of(context).pushNamed(MainMenu.routeName);
+                    },
+            ),
+          ],
         ),
       ),
     );
@@ -176,6 +119,7 @@ class _MudarisCardListState extends State<MudarisCardList> {
   Widget build(BuildContext context) {
     listMudaris = widget.list;
     return ListView.builder(
+      padding: EdgeInsets.only(left: 40),
       itemCount: listMudaris?.length ?? 0,
       itemBuilder: _buildCardListItem,
       shrinkWrap: true,

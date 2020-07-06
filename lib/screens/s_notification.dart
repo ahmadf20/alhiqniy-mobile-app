@@ -1,5 +1,6 @@
 import 'package:alhiqniy/models/m_dummy.dart';
 import 'package:alhiqniy/providers/p_user.dart';
+import 'package:alhiqniy/widgets/w_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -28,37 +29,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.only(
-                  left: 8,
-                  top: 8,
-                ),
-                child: BackButton(
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                ),
-              ),
-              Container(
-                padding: EdgeInsets.only(
-                  left: 40,
-                  top: 10,
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Text(
-                      'Notifikasi',
-                      style: TextStyle(
-                        fontSize: 36,
-                        fontFamily: 'Muli',
-                        fontWeight: FontWeight.w600,
-                        color: Theme.of(context).primaryColor,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
+              MyAppBar(title: 'Notifikasi'),
               Expanded(
                 child: Padding(
                   padding: const EdgeInsets.only(

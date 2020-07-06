@@ -1,11 +1,13 @@
-User signUpFromJson(Map str) => User.fromJson(str);
+User userFromJson(Map str) => User.fromJson(str);
 
 class User {
   String id;
+
+  /// 3 = thullab, 2 = mudaris
   String profileId;
   String username;
   String password;
-  dynamic avatar;
+  String avatar;
   String statusActive;
   DateTime createdAt;
   DateTime updatedAt;
@@ -36,13 +38,15 @@ class User {
         password: json["password"],
         avatar: json["avatar"],
         statusActive: json["status_active"],
-        createdAt: DateTime.parse(json["created_at"]),
+        createdAt: json["created_at"] == null
+            ? null
+            : DateTime.parse(json["created_at"]),
         updatedAt: json["updated_at"] == null
             ? null
             : DateTime.parse(json["updated_at"]),
         name: json["name"],
         phone: json["phone"],
         token: json["token"],
-        verified: json["verified"],
+        verified: json["verified"] ?? false,
       );
 }

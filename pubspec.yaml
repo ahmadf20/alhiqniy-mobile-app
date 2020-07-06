@@ -42,7 +42,10 @@ dependencies:
   pin_input_text_field: ^3.0.3
   draggable_scrollbar: ^0.0.4
   shared_preferences: ^0.5.7+3
+  dio: ^3.0.9
+  logger: ^0.9.1
   bot_toast: ^3.0.0
+  
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -93,42 +96,42 @@ flutter:
       - family: Muli
         fonts:
           - asset : assets/fonts/Muli-ExtraLight.ttf	
-            weight : 100
+            weight : 200
           - asset : assets/fonts/Muli-ExtraLightItalic.ttf	
-            weight : 100
+            weight : 200
             style : italic
           - asset : assets/fonts/Muli-Light.ttf
-            weight : 200
+            weight : 300
           - asset : assets/fonts/Muli-LightItalic.ttf
-            weight : 200
+            weight : 400
             style : italic
           - asset : assets/fonts/Muli-Regular.ttf
           - asset : assets/fonts/Muli-Italic.ttf
             style : italic
           - asset : assets/fonts/Muli-Medium.ttf
-            weight : 400
+            weight : 500
           - asset : assets/fonts/Muli-MediumItalic.ttf
-            weight : 400
+            weight : 500
             style : italic
           - asset : assets/fonts/Muli-SemiBold.ttf
-            weight : 500
+            weight : 600
           - asset : assets/fonts/Muli-SemiBoldItalic.ttf
-            weight : 500
+            weight : 600
             style : italic
           - asset : assets/fonts/Muli-Bold.ttf		
-            weight : 600
+            weight : 700
           - asset : assets/fonts/Muli-BoldItalic.ttf	
-            weight : 600
+            weight : 700
             style : italic
           - asset : assets/fonts/Muli-Black.ttf		
-            weight : 700
+            weight : 800
           - asset : assets/fonts/Muli-BlackItalic.ttf	
-            weight : 700
+            weight : 800
             style : italic
           - asset : assets/fonts/Muli-ExtraBold.ttf		
-            weight : 800
+            weight : 900
           - asset : assets/fonts/Muli-ExtraBoldItalic.ttf	
-            weight : 800
+            weight : 900
             style : italic
 
       - family: OpenSans

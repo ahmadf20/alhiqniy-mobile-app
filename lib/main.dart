@@ -1,4 +1,3 @@
-import 'package:alhiqniy/providers/p_prayer_times.dart';
 import 'package:alhiqniy/providers/p_user.dart';
 import 'package:alhiqniy/screens/s_landing.dart';
 import 'package:alhiqniy/screens/s_main_menu.dart';
@@ -60,9 +59,6 @@ class _MyAppState extends State<MyApp> {
         providers: [
           ChangeNotifierProvider<UserProvider>(
             create: (_) => UserProvider(),
-          ),
-          ChangeNotifierProvider<PrayerTimesProvider>(
-            create: (_) => PrayerTimesProvider(),
           ),
         ],
         child: MaterialApp(

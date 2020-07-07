@@ -1,17 +1,14 @@
-import 'dart:async';
 import 'dart:io';
 import 'dart:ui';
 
+import 'package:adhan/adhan.dart';
 import 'package:alhiqniy/main.dart';
 import 'package:alhiqniy/models/m_dummy.dart';
-import 'package:alhiqniy/models/m_prayer_times.dart';
-import 'package:alhiqniy/providers/p_prayer_times.dart';
 import 'package:alhiqniy/providers/p_user.dart';
 import 'package:alhiqniy/screens/s_choose_halaqah.dart';
 import 'package:alhiqniy/screens/s_detail_halaqah.dart';
 import 'package:alhiqniy/screens/s_prayer_times.dart';
 import 'package:alhiqniy/screens/s_maktabah.dart';
-import 'package:alhiqniy/utils/f_prayer_times.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:geolocator/geolocator.dart';
@@ -20,7 +17,6 @@ import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 UserType _userType;
-PrayerTimes _todayPrayerTimes;
 
 class HomeScreen extends StatefulWidget {
   static const routeName = '/home_screen';
@@ -32,40 +28,35 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  String _currentAddress = 'Jakarta, Indonesia';
-  String _nextprayerName = '', _nextPrayerTime = '';
+  String currentAddress = 'Jakarta, Indonesia';
+  DateTime nextPrayerTime;
+  String nextprayerName = '';
+
+  PrayerTimes prayerTimes;
 
   void getNextPrayerTimes() {
     var currentTime = DateTime.now();
 
-    print(currentTime.toString());
-    print(parseToDateTime('12:01').toString());
-
-    if (_todayPrayerTimes != null) {
-      if (currentTime
-          .isBefore(parseToDateTime(_todayPrayerTimes.items[0].fajr))) {
-        _nextprayerName = 'Subuh';
-        _nextPrayerTime = _todayPrayerTimes.items[0].fajr.toString();
+    if (prayerTimes != null) {
+      if (currentTime.isBefore(prayerTimes.fajr)) {
+        nextprayerName = 'Subuh';
+        nextPrayerTime = prayerTimes.fajr;
         print('done');
-      } else if (currentTime
-          .isBefore(parseToDateTime(_todayPrayerTimes.items[0].shurooq))) {
-        _nextprayerName = 'Syuruq';
-        _nextPrayerTime = _todayPrayerTimes.items[0].shurooq.toString();
-      } else if (currentTime
-          .isBefore(parseToDateTime(_todayPrayerTimes.items[0].dhuhr))) {
-        _nextprayerName = 'Dzuhur';
-        _nextPrayerTime = _todayPrayerTimes.items[0].dhuhr.toString();
-      } else if (currentTime
-          .isBefore(parseToDateTime(_todayPrayerTimes.items[0].asr))) {
-        _nextprayerName = 'Ashar';
-        _nextPrayerTime = _todayPrayerTimes.items[0].asr.toString();
-      } else if (currentTime
-          .isBefore(parseToDateTime(_todayPrayerTimes.items[0].maghrib))) {
-        _nextprayerName = 'Maghrib';
-        _nextPrayerTime = _todayPrayerTimes.items[0].maghrib.toString();
+      } else if (currentTime.isBefore(prayerTimes.sunrise)) {
+        nextprayerName = 'Syuruq';
+        nextPrayerTime = prayerTimes.sunrise;
+      } else if (currentTime.isBefore(prayerTimes.dhuhr)) {
+        nextprayerName = 'Dzuhur';
+        nextPrayerTime = prayerTimes.dhuhr;
+      } else if (currentTime.isBefore(prayerTimes.asr)) {
+        nextprayerName = 'Ashar';
+        nextPrayerTime = prayerTimes.asr;
+      } else if (currentTime.isBefore(prayerTimes.maghrib)) {
+        nextprayerName = 'Maghrib';
+        nextPrayerTime = prayerTimes.maghrib;
       } else {
-        _nextprayerName = 'Isya\'';
-        _nextPrayerTime = _todayPrayerTimes.items[0].isha.toString();
+        nextprayerName = 'Isya\'';
+        nextPrayerTime = prayerTimes.isha;
         print('done');
       }
     }
@@ -87,12 +78,25 @@ class _HomeScreenState extends State<HomeScreen> {
 
       if (mounted) {
         setState(() {
-          _currentAddress = "${place.locality}, ${place.administrativeArea}";
+          currentAddress = "${place.locality}, ${place.administrativeArea}";
         });
       }
     } catch (e) {
       print(e);
     }
+  }
+
+  void fetchPrayerTimesData() {
+    final Coordinates myCoordinate = Coordinates(
+        currentPosition?.latitude ?? -6.2,
+        currentPosition?.longitude ?? 106.816667);
+
+    final params = CalculationMethod.singapore.getParameters();
+    params.madhab = Madhab.shafi;
+
+    final PrayerTimes _prayerTimes = PrayerTimes.today(myCoordinate, params);
+    prayerTimes = _prayerTimes;
+    if (mounted) setState(() {});
   }
 
   void _launchYoutube() async {
@@ -145,29 +149,21 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
 
-    if (_todayPrayerTimes == null) {
-      fetchPrayerTimesData(); // fetch today's prayer times
-    }
+    fetchPrayerTimesData(); // fetch today's prayer times
 
-    setState(() {
-      _userType = Provider.of<UserProvider>(context, listen: false).userType;
-    });
+    _userType = Provider.of<UserProvider>(context, listen: false).userType;
 
     _getAddressFromLatLng();
     // print('LATITUDE: ${currentPosition.latitude.toString()}');
     // print('LONGITUDE: ${currentPosition.longitude.toString()}');
-
     // print('LATITUDE: ${Provider.of<Location>(context).location}');
   }
 
   @override
   Widget build(BuildContext context) {
-    _todayPrayerTimes =
-        Provider.of<PrayerTimesProvider>(context).todayPrayerTimes;
-    // getNextPrayerTimes(); //TODO:implement" await befo:re call this function
-
+    getNextPrayerTimes();
     print(Provider.of<UserProvider>(context, listen: false).userType);
-    print(_nextprayerName);
+    print(nextprayerName);
     return Scaffold(
       backgroundColor: Colors.white,
       floatingActionButton: FloatingActionButton(
@@ -200,67 +196,6 @@ class _HomeScreenState extends State<HomeScreen> {
                         fit: BoxFit.cover,
                       ),
                     ),
-                    Container(
-                      padding: EdgeInsets.only(
-                        left: 15,
-                        top: 40,
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          SizedBox(
-                            height: 25,
-                          ),
-                          // (_todayPrayerTimes == null ||
-                          //         _todayPrayerTimes.items.length < 0)
-                          //     ? Center(child: CircularProgressIndicator())
-                          //     : Padding(
-                          //         padding: const EdgeInsets.only(bottom: 10.0),
-                          //         child: Row(
-                          //           children: <Widget>[
-                          //             Spacer(),
-                          //             PrayerTimesCard(
-                          //               title: 'Subuh',
-                          //               image: 'subuh',
-                          //               time: _todayPrayerTimes.items[0].fajr
-                          //                   .toUpperCase(),
-                          //             ),
-                          //             PrayerTimesCard(
-                          //               title: 'Syuruq',
-                          //               image: 'syuruq',
-                          //               time: _todayPrayerTimes.items[0].shurooq
-                          //                   .toUpperCase(),
-                          //             ),
-                          //             PrayerTimesCard(
-                          //               title: 'Dzuhur',
-                          //               image: 'dzuhur',
-                          //               time: _todayPrayerTimes.items[0].dhuhr
-                          //                   .toUpperCase(),
-                          //             ),
-                          //             PrayerTimesCard(
-                          //               title: 'Ashar',
-                          //               image: 'subuh',
-                          //               time: _todayPrayerTimes.items[0].asr
-                          //                   .toUpperCase(),
-                          //             ),
-                          //             PrayerTimesCard(
-                          //               title: 'Maghrib',
-                          //               image: 'maghrib',
-                          //               time: _todayPrayerTimes.items[0].maghrib
-                          //                   .toUpperCase(),
-                          //             ),
-                          //             PrayerTimesCard(
-                          //               title: 'Isya\'',
-                          //               image: 'isya',
-                          //               time: _todayPrayerTimes.items[0].isha
-                          //                   .toUpperCase(),
-                          //             ),
-                          //           ],
-                          //         ),
-                          //       ),
-                        ],
-                      ),
-                    ),
                   ],
                 ),
               ),
@@ -276,20 +211,20 @@ class _HomeScreenState extends State<HomeScreen> {
                           Text(
                             '${DateFormat('EEEE, \nd MMMM y', 'id').format(DateTime.now())}',
                             style: TextStyle(
-                              fontFamily: 'Muli',
+                              fontFamily: 'OpenSans',
                               color: Theme.of(context).primaryColor,
                               fontSize: 20,
-                              fontWeight: FontWeight.w700,
+                              fontWeight: FontWeight.w600,
                               height: 1.5,
                             ),
                           ),
+                          SizedBox(height: 2.5),
                           Text(
-                            _currentAddress,
+                            currentAddress,
                             style: TextStyle(
                               fontFamily: 'OpenSans',
                               color: Theme.of(context).primaryColor,
                               fontSize: 12,
-                              // fontWeight: FontWeight.w700,
                             ),
                           ),
                         ],
@@ -307,7 +242,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         Text(
-                          'Waktu $_nextprayerName',
+                          'Waktu $nextprayerName',
                           style: TextStyle(
                             fontFamily: 'Montserrat',
                             color: Theme.of(context).primaryColor,
@@ -316,8 +251,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                         ),
                         Text(
-                          '45.45',
-                          // '$_nextPrayerTime',
+                          '${DateFormat('HH:mm').format(nextPrayerTime)}',
                           style: TextStyle(
                             fontFamily: 'Montserrat',
                             color: Theme.of(context).primaryColor,
@@ -329,7 +263,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     Padding(
                       padding: const EdgeInsets.only(bottom: 5, left: 5),
                       child: GestureDetector(
-                        onTap: () {},
+                        onTap: () => Navigator.of(context)
+                            .pushNamed(JadwalSholatScreen.routeName),
                         child: Icon(
                           Icons.more_vert,
                           size: 25,
@@ -373,12 +308,6 @@ class _HomeScreenState extends State<HomeScreen> {
                         text: 'Kamus',
                         onPressed: () {},
                       ),
-                      CircleCardMenu(
-                        icon: 'jadwal_sholat',
-                        text: 'Jadwal Sholat',
-                        onPressed: () => Navigator.of(context)
-                            .pushNamed(JadwalSholatScreen.routeName),
-                      ),
                     ],
                   ),
                 ),
@@ -398,20 +327,6 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ),
     );
-  }
-
-  Future<void> fetchPrayerTimesData() async {
-    try {
-      await fetchPrayerTimes(
-              'daily', 'cimahi', DateFormat('d-M-y').format(DateTime.now()))
-          .then((onValue) {
-        print('fetch prayer times data');
-        Provider.of<PrayerTimesProvider>(context, listen: false).set(onValue);
-        return;
-      });
-    } catch (e) {
-      print(e.toString());
-    }
   }
 }
 
@@ -518,7 +433,6 @@ class CardListHalaqah extends StatelessWidget {
         padding: EdgeInsets.fromLTRB(
             15, 10, 15, (listMudarisDummy.length - 1) == index ? 40 : 7.5),
         child: Container(
-          // height: 92,
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(10),

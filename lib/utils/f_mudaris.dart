@@ -6,29 +6,31 @@ import 'package:alhiqniy/models/m_mudaris.dart';
 import 'package:alhiqniy/utils/const.dart';
 import 'package:alhiqniy/utils/keys.dart';
 import 'package:alhiqniy/utils/f_user.dart';
+import 'package:dio/dio.dart' as dio;
 import 'package:http/http.dart';
 
 Future getAllMudaris() async {
   try {
-    final response = await get('$url/mudaris', headers: await getHeader());
+    dio.Response response = await dio.Dio().get(
+      '$url/mudaris',
+      options: dio.Options(headers: await getHeader()),
+    );
 
-    var responseJson = json.decode(response.body);
-    logger.d(responseJson);
+    logger.v(response.data);
 
-    if (responseJson['status'] != 'ERROR') {
-      List<Mudaris> mudarisList = [];
-      //TODO: should be changed in BE with status OK
-      responseJson['data']
-          .forEach((mudaris) => mudarisList.add(mudarisFromJson(mudaris)));
-      return mudarisList;
-    } else if (responseJson['status'] == 'ERROR') {
-      throw responseJson['messages'][0];
+    List<Mudaris> mudarisList = [];
+    response.data['data']
+        .forEach((mudaris) => mudarisList.add(mudarisFromJson(mudaris)));
+    return mudarisList;
+  } on dio.DioError catch (e) {
+    if (e.response != null) {
+      throw e.response.data['messages'][0];
     } else {
-      throw ErrorMessage.general;
+      rethrow;
     }
   } catch (e) {
     logger.e(e);
-    rethrow;
+    throw ErrorMessage.general;
   }
 }
 

@@ -4,6 +4,7 @@ import 'package:alhiqniy/models/m_mudaris.dart';
 import 'package:alhiqniy/screens/s_verif_mudaris_otp.dart';
 import 'package:alhiqniy/utils/f_mudaris.dart';
 import 'package:alhiqniy/utils/function.dart';
+import 'package:alhiqniy/widgets/w_app_bar.dart';
 import 'package:flutter/material.dart';
 
 String _selectedMudaris;
@@ -19,6 +20,7 @@ class VerifMudarisList extends StatefulWidget {
 class _VerifMudarisListState extends State<VerifMudarisList> {
   List<Mudaris> listMudaris;
   String filter = '';
+  TextEditingController searchTC = TextEditingController();
 
   Future getMudarisList() async {
     try {
@@ -47,146 +49,100 @@ class _VerifMudarisListState extends State<VerifMudarisList> {
       body: SafeArea(
         child: GestureDetector(
           onTap: () => FocusScope.of(context).unfocus(),
-          child: Container(
-            color: Colors.white,
-            width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height,
-            child: SingleChildScrollView(
-              child: Padding(
-                padding: const EdgeInsets.only(left: 25.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.only(
-                        top: 30,
-                        bottom: 15,
-                      ),
-                      child: Transform.translate(
-                        offset: Offset(-15, 0),
-                        child: BackButton(
-                          onPressed: () {
-                            Navigator.of(context).pop();
-                          },
-                        ),
-                      ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              MyAppBar(
+                title: 'Antum:Mudaris?',
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 15),
+                child: Padding(
+                  padding: const EdgeInsets.only(right: 15.0, left: 40),
+                  child: Text(
+                    'Hanya Mudaris yang terverifikasi oleh Admin yang diizinkan untuk mengajar di Madrasah Online Al-Hiqniy',
+                    style: TextStyle(
+                      fontFamily: 'OpenSans',
+                      fontSize: 14,
+                      color: Colors.grey,
                     ),
-                    Text(
-                      'Antum',
-                      style: TextStyle(
-                        fontFamily: 'Muli',
-                        fontSize: 34,
-                        color: Theme.of(context).primaryColor,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                    Text(
-                      'Mudaris?',
-                      style: TextStyle(
-                        fontFamily: 'Muli',
-                        fontSize: 40,
-                        color: Theme.of(context).primaryColor,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(
-                        top: 15,
-                        bottom: 10,
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.only(right: 15.0),
-                        child: Text(
-                          'Hanya Mudaris yang terverifikasi oleh Admin yang diizinkan untuk mengajar di Madrasah Online Al-Hiqniy',
-                          style: TextStyle(
-                            fontFamily: 'OpenSans',
-                            fontSize: 14,
-                            color: Colors.grey,
-                          ),
-                        ),
-                      ),
-                    ),
-                    TextField(
-                      decoration: InputDecoration(
-                        contentPadding: EdgeInsets.only(
-                          bottom: 15,
-                        ),
-                        prefixIcon: Icon(Icons.search),
-                        labelText: 'Cari nama antum di sini . . .',
-                        labelStyle: TextStyle(fontFamily: 'OpenSans'),
-                        alignLabelWithHint: false,
-                        floatingLabelBehavior: FloatingLabelBehavior.never,
-                        enabledBorder: InputBorder.none,
-                        focusedBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Theme.of(context).primaryColor,
-                          ),
-                        ),
-                      ),
-                      // focusNode: _namaFocus,
-                      textAlignVertical: TextAlignVertical.top,
-                      maxLines: 1,
-                      keyboardType: TextInputType.text,
-                      textInputAction: TextInputAction.search,
-                      onChanged: (value) {
-                        filter = value;
-                        setState(() {});
-                      },
-                      onSubmitted: (val) {
-                        // FocusScope.of(context).requestFocus(_usernameFocus);
-                      },
-                    ),
-                    listMudaris == null
-                        ? showLoading()
-                        : MudarisCardList(
-                            list: listMudaris,
-                            filter: filter,
-                          ),
-                    SizedBox(
-                      height: 50,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 10.0),
-                      child: Container(
-                        height: 47,
-                        margin: EdgeInsets.only(
-                          bottom: 50,
-                          right: 10,
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: <Widget>[
-                            Text(
-                              'VERIFIKASI',
-                              style: TextStyle(
-                                color: Theme.of(context).primaryColor,
-                                fontSize: 20,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                            FlatButton(
-                              shape: CircleBorder(),
-                              child: Image.asset(
-                                'assets/icons/next_button.png',
-                                width: 47,
-                              ),
-                              onPressed: () {
-                                Navigator.of(context)
-                                    .push(MaterialPageRoute(builder: (context) {
-                                  return VerifMudarisOTP(
-                                    idMudaris: _selectedMudaris,
-                                  );
-                                }));
-                              },
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ],
+                  ),
                 ),
               ),
-            ),
+              Padding(
+                padding: const EdgeInsets.only(top: 20, left: 40),
+                child: TextField(
+                  controller: searchTC,
+                  decoration: InputDecoration(
+                    prefixIcon: Icon(Icons.search),
+                    hintText: 'Cari nama Antum di sini ...',
+                    alignLabelWithHint: false,
+                    labelStyle: TextStyle(fontFamily: 'Muli'),
+                    floatingLabelBehavior: FloatingLabelBehavior.never,
+                    border: InputBorder.none,
+                    focusedBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(
+                        color: Theme.of(context).primaryColor,
+                      ),
+                    ),
+                  ),
+                  textAlignVertical: TextAlignVertical.top,
+                  maxLines: 1,
+                  keyboardType: TextInputType.text,
+                  textInputAction: TextInputAction.search,
+                  onSubmitted: (val) {},
+                ),
+              ),
+              Expanded(
+                child: listMudaris == null
+                    ? showLoading()
+                    : MudarisCardList(
+                        list: listMudaris,
+                        filter: filter,
+                      ),
+              ),
+              SizedBox(
+                height: 50,
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 10.0),
+                child: Container(
+                  height: 47,
+                  margin: EdgeInsets.only(
+                    bottom: 50,
+                    right: 10,
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: <Widget>[
+                      Text(
+                        'VERIFIKASI',
+                        style: TextStyle(
+                          color: Theme.of(context).primaryColor,
+                          fontSize: 20,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                      FlatButton(
+                        shape: CircleBorder(),
+                        child: Image.asset(
+                          'assets/icons/next_button.png',
+                          width: 47,
+                        ),
+                        onPressed: () {
+                          Navigator.of(context)
+                              .push(MaterialPageRoute(builder: (context) {
+                            return VerifMudarisOTP(
+                              idMudaris: _selectedMudaris,
+                            );
+                          }));
+                        },
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
       ),

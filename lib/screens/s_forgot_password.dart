@@ -1,3 +1,4 @@
+import 'package:alhiqniy/widgets/w_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -10,49 +11,39 @@ class ForgotPasswordScreen extends StatefulWidget {
 }
 
 class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
+  TextEditingController phoneTC = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
         child: ListView(
+          padding: EdgeInsets.only(top: 5, left: 5),
           children: <Widget>[
-            Container(
-              alignment: Alignment.topLeft,
-              padding: EdgeInsets.only(left: 15, top: 25, bottom: 10),
-              child: BackButton(),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 60),
-              child: Text(
-                'Masukkan\nNomor\nHandphone',
-                style: TextStyle(
-                  fontFamily: 'Muli',
-                  fontSize: 40,
-                  fontWeight: FontWeight.bold,
-                  color: Theme.of(context).primaryColor,
-                ),
-              ),
+            MyAppBar(
+              title: 'Masukkan:Nomor:Handphone',
             ),
             Padding(
               padding: const EdgeInsets.only(
-                left: 60,
+                left: 40,
                 right: 30,
                 top: 20,
               ),
               child: Text(
-                'Kami akan kirimkan password Antum\nke nomor handphone  yang telah terverifikasi/ndengan akun Antum',
+                'Kami akan kirimkan password Antum ke nomor handphone  yang telah terverifikasi dengan akun Antum',
                 style: TextStyle(
                   fontFamily: 'OpenSans',
                   fontSize: 14,
                   color: Colors.grey,
+                  height: 1.75,
                 ),
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(left: 60, top: 40.0),
+              padding: const EdgeInsets.only(left: 40, top: 35),
               child: Form(
                 child: TextFormField(
+                  controller: phoneTC,
                   style: TextStyle(
                     fontFamily: 'Muli',
                     fontSize: 18,

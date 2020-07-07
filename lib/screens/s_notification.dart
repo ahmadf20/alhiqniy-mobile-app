@@ -65,6 +65,8 @@ class _NotifikasiCardState extends State<NotifikasiCard> {
   }
 
   Widget _buildCardListItem(BuildContext context, int index) {
+    var item = listKonfirmasiThullab[index];
+    var isAccepted = item.isAccepted;
     return Container(
       padding: EdgeInsets.only(bottom: 22.5),
       margin: EdgeInsets.only(
@@ -83,7 +85,7 @@ class _NotifikasiCardState extends State<NotifikasiCard> {
           Container(
             child: ClipOval(
               child: Image.asset(
-                listKonfirmasiThullab[index].gambar,
+                item.gambar,
                 width: 56,
                 height: 56,
               ),
@@ -99,7 +101,7 @@ class _NotifikasiCardState extends State<NotifikasiCard> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Text(
-                    listKonfirmasiThullab[index].nama,
+                    item.nama,
                     style: TextStyle(
                       fontFamily: 'Muli',
                       color: Colors.black,
@@ -109,7 +111,9 @@ class _NotifikasiCardState extends State<NotifikasiCard> {
                   ),
                   SizedBox(height: 2.5),
                   Text(
-                    'Anda diizinkan mengikuti halaqah Manjahul Haq',
+                    isAccepted
+                        ? 'Anda diizinkan mengikuti halaqah Manjahul Haq'
+                        : 'Meminta Izin untuk mengikuti halaqah Manhajul Haq.',
                     style: TextStyle(
                       fontFamily: 'OpenSans',
                       color: Colors.grey,
@@ -122,65 +126,39 @@ class _NotifikasiCardState extends State<NotifikasiCard> {
           ),
           Provider.of<UserProvider>(context).userType == UserType.thullab
               ? Container()
-              : listKonfirmasiThullab[index].isAccepted
-                  ? Padding(
-                      padding: const EdgeInsets.only(right: 20.0),
-                      child: Center(
-                        child: Ink(
-                          child: InkWell(
-                            onTap: () {},
-                            child: Container(
-                              width: 90,
-                              height: 30,
-                              alignment: Alignment.center,
-                              decoration: BoxDecoration(
-                                color: Theme.of(context).primaryColor,
-                                borderRadius: BorderRadius.circular(100),
-                              ),
-                              child: Text(
-                                'Hapus Izin',
-                                style: TextStyle(
-                                  fontFamily: 'Muli',
-                                  color: Colors.white,
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w700,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
+              : Padding(
+                  padding: const EdgeInsets.only(right: 20.0),
+                  child: Container(
+                    width: 90,
+                    height: 30,
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Theme.of(context).primaryColor),
+                      color: isAccepted
+                          ? Theme.of(context).primaryColor
+                          : Colors.white,
+                      borderRadius: BorderRadius.circular(100),
+                    ),
+                    child: FlatButton(
+                      padding: EdgeInsets.all(0),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(100),
                       ),
-                    )
-                  : Padding(
-                      padding: const EdgeInsets.only(right: 20.0),
-                      child: Center(
-                        child: Ink(
-                          child: InkWell(
-                            onTap: () {},
-                            child: Container(
-                              width: 90,
-                              height: 30,
-                              alignment: Alignment.center,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(100),
-                                border: Border.all(
-                                  color: Theme.of(context).primaryColor,
-                                ),
-                              ),
-                              child: Text(
-                                'izinkan',
-                                style: TextStyle(
-                                  fontFamily: 'Muli',
-                                  color: Theme.of(context).primaryColor,
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w700,
-                                ),
-                              ),
-                            ),
-                          ),
+                      onPressed: () {},
+                      child: Text(
+                        isAccepted ? 'Hapus Izin' : 'Izinkan',
+                        style: TextStyle(
+                          fontFamily: 'Muli',
+                          color: !isAccepted
+                              ? Theme.of(context).primaryColor
+                              : Colors.white,
+                          fontSize: 12,
+                          fontWeight: FontWeight.w700,
                         ),
                       ),
                     ),
+                  ),
+                )
         ],
       ),
     );

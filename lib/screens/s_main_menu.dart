@@ -1,5 +1,6 @@
 import 'package:alhiqniy/providers/p_user.dart';
 import 'package:alhiqniy/screens/s_account_setting.dart';
+import 'package:alhiqniy/screens/s_announcement.dart';
 import 'package:alhiqniy/screens/s_chat.dart';
 import 'package:alhiqniy/screens/s_home.dart';
 import 'package:alhiqniy/screens/s_notification.dart';
@@ -26,7 +27,7 @@ class _MainMenuState extends State<MainMenu> {
         return ChatScreen();
         break;
       case 2:
-        return Container();
+        return AnnouncementScreen();
         break;
       case 3:
         return NotificationScreen();

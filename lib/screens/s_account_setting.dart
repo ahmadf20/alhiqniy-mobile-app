@@ -1,8 +1,8 @@
 import 'package:alhiqniy/main.dart';
 import 'package:alhiqniy/models/m_user.dart';
 import 'package:alhiqniy/providers/p_user.dart';
+import 'package:alhiqniy/screens/s_dialog.dart';
 import 'package:alhiqniy/utils/f_user.dart';
-import 'package:alhiqniy/widgets/w_custom_alert.dart';
 import 'package:alhiqniy/widgets/w_custom_bot_toast.dart';
 import 'package:alhiqniy/widgets/w_app_bar.dart';
 import 'package:alhiqniy/widgets/w_button.dart';
@@ -78,14 +78,17 @@ class _AccountSettingState extends State<AccountSetting> {
       BotToast.showLoading();
       await updateUserData(data).then((response) {
         if (response is User) {
-          showCustomAlert(
-            text: 'Berhasil!',
-            iconColor: Color(0xFFFFD800),
-            icon: Icons.done,
-          );
           Provider.of<UserProvider>(context, listen: false).setUser(response);
 
           setUserData();
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => DialogScreen(
+                title: 'Sukses!',
+                subtitle: 'Pengaturan Akun berhasil diperbarui',
+              ),
+            ),
+          );
         } else {
           throw response;
         }

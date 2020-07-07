@@ -1,8 +1,6 @@
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 
-import 'f_user.dart';
-
 Widget showLoading() {
   return Center(
     child: CircularProgressIndicator(

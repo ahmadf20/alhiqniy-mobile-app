@@ -7,7 +7,7 @@ import 'package:alhiqniy/models/m_dummy.dart';
 import 'package:alhiqniy/models/m_prayer_times.dart';
 import 'package:alhiqniy/providers/p_prayer_times.dart';
 import 'package:alhiqniy/providers/p_user.dart';
-import 'package:alhiqniy/screens/s_choose_mudaris.dart';
+import 'package:alhiqniy/screens/s_choose_halaqah.dart';
 import 'package:alhiqniy/screens/s_detail_halaqah.dart';
 import 'package:alhiqniy/screens/s_prayer_times.dart';
 import 'package:alhiqniy/screens/s_maktabah.dart';
@@ -340,8 +340,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
               Container(
-                height: 120,
-                padding: EdgeInsets.only(top: 20),
+                margin: EdgeInsets.only(top: 25, bottom: 15),
                 child: SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
                   child: Row(
@@ -556,7 +555,6 @@ class CardListHalaqah extends StatelessWidget {
               ),
               Padding(
                 padding: const EdgeInsets.only(
-                  top: 15,
                   left: 22,
                 ),
                 child: Column(

@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:alhiqniy/providers/p_user.dart';
 import 'package:alhiqniy/screens/s_auth.dart';
+import 'package:alhiqniy/screens/s_verif_mudaris_list.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -119,7 +120,7 @@ class _IntroScreenState extends State<IntroScreen> {
                             Provider.of<UserProvider>(context, listen: false)
                                 .setUserType(UserType.mudaris);
                             Navigator.of(context)
-                                .pushNamed(AuthScreen.routeName);
+                                .pushNamed(VerifMudarisList.routeName);
                           },
                           child: Text(
                             'MUDARIS',

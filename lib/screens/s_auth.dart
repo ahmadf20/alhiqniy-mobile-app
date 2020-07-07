@@ -8,7 +8,7 @@ import 'package:alhiqniy/utils/f_user.dart';
 import 'package:alhiqniy/widgets/w_button.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:alhiqniy/screens/s_choose_mudaris.dart';
+import 'package:alhiqniy/screens/s_choose_halaqah.dart';
 import 'package:alhiqniy/screens/s_forgot_password.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';

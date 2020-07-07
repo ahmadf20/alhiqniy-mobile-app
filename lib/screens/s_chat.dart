@@ -22,41 +22,33 @@ class ChatScreen extends StatelessWidget {
                 padding: EdgeInsets.only(
                   left: 40,
                 ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.only(top: 25),
-                      child: TextField(
-                        decoration: InputDecoration(
-                          contentPadding: EdgeInsets.only(
-                            bottom: 15,
-                          ),
-                          prefixIcon: Icon(Icons.search),
-                          labelText: 'Cari nama atau pesan',
-                          alignLabelWithHint: false,
-                          labelStyle: TextStyle(
-                            fontFamily: 'Muli',
-                          ),
-                          floatingLabelBehavior: FloatingLabelBehavior.never,
-                          border: InputBorder.none,
-                          focusedBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(
-                              color: Theme.of(context).primaryColor,
-                            ),
-                          ),
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 25),
+                  child: TextField(
+                    decoration: InputDecoration(
+                      prefixIcon: Icon(Icons.search),
+                      hintText: 'Cari nama atau pesan',
+                      alignLabelWithHint: false,
+                      labelStyle: TextStyle(
+                        fontFamily: 'Muli',
+                      ),
+                      floatingLabelBehavior: FloatingLabelBehavior.never,
+                      border: InputBorder.none,
+                      focusedBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Theme.of(context).primaryColor,
                         ),
-                        // focusNode: _namaFocus,
-                        textAlignVertical: TextAlignVertical.top,
-                        maxLines: 1,
-                        keyboardType: TextInputType.text,
-                        textInputAction: TextInputAction.search,
-                        onSubmitted: (val) {
-                          // FocusScope.of(context).requestFocus(_usernameFocus);
-                        },
                       ),
                     ),
-                  ],
+                    // focusNode: _namaFocus,
+                    textAlignVertical: TextAlignVertical.top,
+                    maxLines: 1,
+                    keyboardType: TextInputType.text,
+                    textInputAction: TextInputAction.search,
+                    onSubmitted: (val) {
+                      // FocusScope.of(context).requestFocus(_usernameFocus);
+                    },
+                  ),
                 ),
               ),
               Expanded(

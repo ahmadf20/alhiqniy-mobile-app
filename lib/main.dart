@@ -1,12 +1,9 @@
-import 'package:alhiqniy/models/m_user.dart';
 import 'package:alhiqniy/providers/p_prayer_times.dart';
 import 'package:alhiqniy/providers/p_user.dart';
 import 'package:alhiqniy/screens/s_landing.dart';
 import 'package:alhiqniy/screens/s_main_menu.dart';
-import 'package:alhiqniy/utils/const.dart';
 import 'package:alhiqniy/utils/f_user.dart';
 import 'package:alhiqniy/utils/routes.dart';
-import 'package:alhiqniy/widgets/w_custom_bot_toast.dart';
 import 'package:alhiqniy/widgets/w_loading_indicator.dart';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';

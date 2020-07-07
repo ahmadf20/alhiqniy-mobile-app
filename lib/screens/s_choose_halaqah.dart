@@ -1,18 +1,20 @@
 import 'dart:async';
 
 import 'package:alhiqniy/main.dart';
-import 'package:alhiqniy/models/m_mudaris.dart';
+import 'package:alhiqniy/models/m_halaqah.dart';
+import 'package:alhiqniy/screens/s_dialog.dart';
 import 'package:alhiqniy/screens/s_main_menu.dart';
-import 'package:alhiqniy/utils/f_mudaris.dart';
+import 'package:alhiqniy/utils/f_halaqah.dart';
 import 'package:alhiqniy/widgets/w_app_bar.dart';
 import 'package:alhiqniy/widgets/w_button.dart';
 import 'package:alhiqniy/widgets/w_loading_indicator.dart';
 import 'package:flutter/material.dart';
 
 class ChooseMudaris extends StatefulWidget {
+  final bool isEditingMode;
   static const routeName = '/choose_mudaris_screen';
 
-  ChooseMudaris({Key key}) : super(key: key);
+  ChooseMudaris({Key key, this.isEditingMode = false}) : super(key: key);
 
   @override
   _ChooseMudarisState createState() => _ChooseMudarisState();
@@ -21,13 +23,13 @@ class ChooseMudaris extends StatefulWidget {
 class _ChooseMudarisState extends State<ChooseMudaris> {
   List<int> listSelectedMudaris = [];
 
-  List<Mudaris> listMudaris;
+  List<Halaqah> listHalaqah;
 
-  Future getMudarisList() async {
+  Future fetchHalqahList() async {
     try {
-      await getAllMudaris().then((response) {
-        if (response is List<Mudaris>) {
-          listMudaris = response;
+      await getAllHalaqah().then((res) {
+        if (res is List<Halaqah>) {
+          listHalaqah = res;
           if (mounted) setState(() {});
         }
       });
@@ -39,7 +41,7 @@ class _ChooseMudarisState extends State<ChooseMudaris> {
   @override
   void initState() {
     super.initState();
-    getMudarisList();
+    fetchHalqahList();
   }
 
   @override
@@ -59,15 +61,15 @@ class _ChooseMudarisState extends State<ChooseMudaris> {
                   fontFamily: 'OpenSans',
                   fontSize: 14,
                   color: Colors.grey,
+                  height: 1.75,
                 ),
               ),
             ),
-            //listview
             Expanded(
-              child: listMudaris == null
+              child: listHalaqah == null
                   ? Center(child: loadingIndicator())
                   : MudarisCardList(
-                      list: listMudaris,
+                      list: listHalaqah,
                       listSelectedMudaris: listSelectedMudaris,
                       onListChange: (value) {
                         setState(() {
@@ -82,7 +84,18 @@ class _ChooseMudarisState extends State<ChooseMudaris> {
               onPressed: listSelectedMudaris.isEmpty
                   ? null
                   : () {
-                      Navigator.of(context).pushNamed(MainMenu.routeName);
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => DialogScreen(
+                            title: 'Sukses!',
+                            subtitle:
+                                'Antum baru akan terdaftar sebagai thulab di halaqah setelah mendapatkan konfirmasi dari mudaris yang bersangkutan',
+                            onConfirm: () => Navigator.of(context)
+                                .pushNamedAndRemoveUntil(
+                                    MainMenu.routeName, (e) => false),
+                          ),
+                        ),
+                      );
                     },
             ),
           ],
@@ -93,7 +106,7 @@ class _ChooseMudarisState extends State<ChooseMudaris> {
 }
 
 class MudarisCardList extends StatefulWidget {
-  final List<Mudaris> list;
+  final List<Halaqah> list;
   final Function(List<int>) onListChange;
   final List<int> listSelectedMudaris;
 
@@ -107,7 +120,7 @@ class MudarisCardList extends StatefulWidget {
 
 class _MudarisCardListState extends State<MudarisCardList> {
   List<int> _listSelectedMudaris;
-  List<Mudaris> listMudaris = [];
+  List<Halaqah> listHalaqah = [];
 
   @override
   void initState() {
@@ -117,16 +130,17 @@ class _MudarisCardListState extends State<MudarisCardList> {
 
   @override
   Widget build(BuildContext context) {
-    listMudaris = widget.list;
+    listHalaqah = widget.list;
     return ListView.builder(
       padding: EdgeInsets.only(left: 40),
-      itemCount: listMudaris?.length ?? 0,
+      itemCount: listHalaqah?.length ?? 0,
       itemBuilder: _buildCardListItem,
       shrinkWrap: true,
     );
   }
 
   Widget _buildCardListItem(BuildContext context, int index) {
+    var item = listHalaqah[index];
     return Ink(
       child: InkWell(
         onTap: () {
@@ -136,7 +150,6 @@ class _MudarisCardListState extends State<MudarisCardList> {
                 ? _listSelectedMudaris.remove(index)
                 : _listSelectedMudaris.add(index);
           });
-          print('list length : ${_listSelectedMudaris.length}');
         },
         child: Container(
           padding: EdgeInsets.symmetric(vertical: 18.5),
@@ -184,17 +197,12 @@ class _MudarisCardListState extends State<MudarisCardList> {
                         ),
                       ),
                     ),
-              Container(
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(100),
-                  child: Image.asset(
-                    'assets/images/profile/profile2.png',
-                    width: 56,
-                    height: 56,
-                  ),
-                ),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(100),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(100),
+                child: Image.asset(
+                  item.image ?? 'assets/images/profile/profile2.png',
+                  width: 56,
+                  height: 56,
                 ),
               ),
               Expanded(
@@ -205,7 +213,7 @@ class _MudarisCardListState extends State<MudarisCardList> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       Text(
-                        listMudaris[index].name,
+                        listHalaqah[index].mudaris.name,
                         style: TextStyle(
                           fontFamily: 'OpenSans',
                           color: Colors.black,
@@ -217,7 +225,7 @@ class _MudarisCardListState extends State<MudarisCardList> {
                       Container(
                         padding: const EdgeInsets.only(top: 2.50, right: 10),
                         child: Text(
-                          '${listMudaris[index].name}',
+                          '${listHalaqah[index].name}',
                           style: TextStyle(
                             fontFamily: 'Muli',
                             fontSize: 18,
@@ -230,7 +238,7 @@ class _MudarisCardListState extends State<MudarisCardList> {
                       Padding(
                         padding: const EdgeInsets.only(top: 2.50),
                         child: Text(
-                          'Ahad pekan - 3 | 20:15 WIB',
+                          '${item.jadwalHari} | ${item.jadwalJam}',
                           style: TextStyle(
                             fontFamily: 'OpenSans',
                             color: Colors.grey,

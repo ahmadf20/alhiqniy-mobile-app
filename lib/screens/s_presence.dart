@@ -113,7 +113,7 @@ class _PresenceScreenState extends State<PresenceScreen> {
       await Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => CallPage(
+          builder: (context) => CallScreen(
             channelName: channelName,
           ),
         ),

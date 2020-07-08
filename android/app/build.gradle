@@ -34,8 +34,8 @@ android {
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
         applicationId "com.alhiqniy.alhiqniy"
-        minSdkVersion 18
-        targetSdkVersion 28
+        minSdkVersion 21 //jitsi requires minSdk to 21 : android 5(lolipop)
+        targetSdkVersion 29
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
     }
@@ -45,12 +45,32 @@ android {
             // TODO: Add your own signing config for the release build.
             // Signing with the debug keys for now, so `flutter run --release` works.
             signingConfig signingConfigs.debug
+            
         //     minifyEnabled true // added to resove build release issue
         //     shrinkResources true 
         // }
         // debug{
         //     minifyEnabled true // added to resove build release issue
+
+            // Add below 3 lines for proguard
+            minifyEnabled true
+            useProguard true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+    }
+
+    // Add Java 1.8 compatibility support to your project by adding the following lines
+    // compileOptions {
+    //     sourceCompatibility JavaVersion.VERSION_1_8
+    //     targetCompatibility JavaVersion.VERSION_1_8
+    // }
+
+    //https://github.com/tanersener/react-native-ffmpeg/issues/54
+    packagingOptions {
+        pickFirst 'lib/x86/libc++_shared.so'
+        pickFirst 'lib/x86_64/libc++_shared.so'
+        pickFirst 'lib/armeabi-v7a/libc++_shared.so'
+        pickFirst 'lib/arm64-v8a/libc++_shared.so'
     }
 }
 

@@ -41,23 +41,26 @@ class _DetailHalaqahScreenState extends State<DetailHalaqahScreen> {
                 ),
               ),
               Expanded(
-                child: Container(
-                  padding: const EdgeInsets.only(left: 35, right: 35),
-                  decoration: BoxDecoration(
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.grey[100],
-                        offset: Offset(0, 8),
-                        blurRadius: 25,
-                      )
-                    ],
-                    // borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(10),
-                    child: Image.asset(
-                      'assets/images/list1.png',
-                      fit: BoxFit.cover,
+                child: AspectRatio(
+                  aspectRatio: 3.5 / 4,
+                  child: Container(
+                    padding: const EdgeInsets.only(left: 35, right: 35),
+                    decoration: BoxDecoration(
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey[200],
+                          offset: Offset(0, 8),
+                          blurRadius: 25,
+                        )
+                      ],
+                      // borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(10),
+                      child: Image.asset(
+                        'assets/images/list1.png',
+                        fit: BoxFit.cover,
+                      ),
                     ),
                   ),
                 ),
@@ -116,6 +119,7 @@ class _DetailHalaqahScreenState extends State<DetailHalaqahScreen> {
                 child: Column(
                   children: <Widget>[
                     OutlineButton(
+                      highlightedBorderColor: Colors.grey,
                       borderSide: BorderSide(
                         color: Colors.grey,
                         width: 1,

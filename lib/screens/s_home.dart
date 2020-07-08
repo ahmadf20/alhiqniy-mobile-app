@@ -242,7 +242,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         Text(
-                          'Waktu $nextprayerName',
+                          '$nextprayerName',
                           style: TextStyle(
                             fontFamily: 'Montserrat',
                             color: Theme.of(context).primaryColor,
@@ -250,6 +250,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             fontSize: 14,
                           ),
                         ),
+                        SizedBox(height: 5),
                         Text(
                           '${DateFormat('HH:mm').format(nextPrayerTime)}',
                           style: TextStyle(

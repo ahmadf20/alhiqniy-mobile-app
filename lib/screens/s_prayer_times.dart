@@ -58,7 +58,7 @@ class _JadwalSholatScreenState extends State<JadwalSholatScreen> {
     DateComponents dateComponents = DateComponents.from(time);
 
     final PrayerTimes _prayerTimes = PrayerTimes.utcOffset(
-        myCoordinate, dateComponents, params, Duration(hours: 7));
+        myCoordinate, dateComponents, params, DateTime.now().timeZoneOffset);
     prayerTimes = _prayerTimes;
     if (mounted) setState(() {});
   }

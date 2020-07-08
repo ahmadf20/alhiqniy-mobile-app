@@ -2,6 +2,8 @@ import 'dart:async';
 
 import 'package:alhiqniy/providers/p_user.dart';
 import 'package:alhiqniy/screens/s_call.dart';
+import 'package:alhiqniy/widgets/w_app_bar.dart';
+import 'package:alhiqniy/widgets/w_button.dart';
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
@@ -23,9 +25,7 @@ class _PresenceScreenState extends State<PresenceScreen> {
   @override
   void initState() {
     super.initState();
-    setState(() {
-      _userType = Provider.of<UserProvider>(context, listen: false).userType;
-    });
+    _userType = Provider.of<UserProvider>(context, listen: false).userType;
   }
 
   @override
@@ -37,121 +37,68 @@ class _PresenceScreenState extends State<PresenceScreen> {
           color: Colors.white,
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height,
-          child: Padding(
-            padding: const EdgeInsets.only(left: 40.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.only(
-                    top: 30,
-                    bottom: 15,
-                  ),
-                  child: Transform.translate(
-                    offset: Offset(-30, 0),
-                    child: BackButton(
-                      onPressed: () {
-                        Navigator.of(context).pop();
-                      },
-                    ),
-                  ),
-                ),
-                Text(
-                  'Kehadiran\nThullab',
-                  style: TextStyle(
-                    fontFamily: 'Muli',
-                    fontSize: 36,
-                    fontWeight: FontWeight.w600,
-                    color: Theme.of(context).primaryColor,
-                  ),
-                ),
-                _userType == UserType.mudaris
-                    ? SizedBox.shrink()
-                    : Column(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              MyAppBar(
+                title: 'Kehadiran:Thullab',
+              ),
+              _userType == UserType.mudaris
+                  ? SizedBox.shrink()
+                  : Padding(
+                      padding: const EdgeInsets.only(
+                          top: 15, bottom: 5, right: 35, left: 40),
+                      child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          Padding(
-                            padding: const EdgeInsets.only(
-                              top: 15,
-                              bottom: 5,
-                              right: 35,
-                            ),
-                            child: RichText(
-                              text: TextSpan(
-                                text:
-                                    'Jika halaqah telah dirasa siap, silahkan ketua kelas halaqah menekan tombol ',
-                                style: TextStyle(
-                                  fontFamily: 'OpenSans',
-                                  fontSize: 14,
-                                  color: Colors.grey,
-                                  height: 1.75,
-                                ),
-                                children: [
-                                  TextSpan(
-                                    text: ' \'check box\' ',
-                                    style: TextStyle(
-                                      color: Theme.of(context).primaryColor,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                  TextSpan(
-                                    text: ' dan ',
-                                  ),
-                                  TextSpan(
-                                    text: ' \'Masuki Halaqah\'',
-                                    style: TextStyle(
-                                      color: Theme.of(context).primaryColor,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                ],
+                          RichText(
+                            text: TextSpan(
+                              text:
+                                  'Jika halaqah telah dirasa siap, silahkan ketua kelas halaqah menekan tombol ',
+                              style: TextStyle(
+                                fontFamily: 'OpenSans',
+                                fontSize: 14,
+                                color: Colors.grey,
+                                height: 1.75,
                               ),
+                              children: [
+                                TextSpan(
+                                  text: ' \'check box\' ',
+                                  style: TextStyle(
+                                    color: Theme.of(context).primaryColor,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                TextSpan(
+                                  text: ' dan ',
+                                ),
+                                TextSpan(
+                                  text: ' \'Masuki Halaqah\'',
+                                  style: TextStyle(
+                                    color: Theme.of(context).primaryColor,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
                         ],
                       ),
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.only(top: 36.0),
-                    // child: ThullabCardList(),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 10.0),
-                  child: Container(
-                    height: 47,
-                    margin: EdgeInsets.only(
-                      bottom: 40,
-                      right: 10,
                     ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: <Widget>[
-                        Text(
-                          _userType == UserType.thullab
-                              ? 'MASUK HALAQAH'
-                              : 'MULAI HALAQAH',
-                          style: TextStyle(
-                            fontFamily: 'Muli',
-                            fontWeight: FontWeight.w700,
-                            color: Theme.of(context).primaryColor,
-                            fontSize: 20,
-                          ),
-                        ),
-                        FlatButton(
-                          shape: CircleBorder(),
-                          child: Image.asset(
-                            'assets/icons/next_button.png',
-                            width: 47,
-                          ),
-                          onPressed: onJoin,
-                        ),
-                      ],
-                    ),
-                  ),
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 36.0),
+                  // child: ThullabCardList(),
                 ),
-              ],
-            ),
+              ),
+              MainButton(
+                text: _userType == UserType.thullab
+                    ? 'MASUK HALAQAH'
+                    : 'MULAI HALAQAH',
+                image: 'assets/icons/arrow_right.png',
+                onPressed: onJoin,
+              ),
+            ],
           ),
         ),
       ),

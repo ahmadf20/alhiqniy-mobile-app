@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:alhiqniy/models/m_user.dart';
 import 'package:alhiqniy/providers/p_user.dart';
 import 'package:alhiqniy/screens/s_main_menu.dart';
-import 'package:alhiqniy/screens/s_verif_mudaris_list.dart';
 import 'package:alhiqniy/utils/f_user.dart';
 import 'package:alhiqniy/widgets/w_button.dart';
 import 'package:flutter/foundation.dart';
@@ -394,14 +393,13 @@ class _AuthScreenState extends State<AuthScreen> {
   Future<void> _signInHandleSubmitted() async {
     var handphone = signInHandphoneTC.text.trim();
     var password = signInPasswordTC.text.trim();
-    var profile = _userType == 'Thullab' ? '3' : '2';
 
     setState(() => _isLoading = true);
 
-    print('$handphone, $password, $profile');
+    print('$handphone, $password,');
 
     try {
-      await signIn(handphone, password, profile).then((response) async {
+      await signIn(handphone, password).then((response) async {
         if (response is User) {
           await saveLoginData(response.token);
           Provider.of<UserProvider>(context, listen: false).setUser(response);
@@ -427,29 +425,22 @@ class _AuthScreenState extends State<AuthScreen> {
     var username = signUpUsernameTC.text.trim();
     var phone = signUpHandphoneTC.text.trim();
     var password = signUPpasswordTC.text.trim();
-    var profile = _userType == 'Thullab' ? '3' : '2';
 
     setState(() => _isLoading = true);
 
-    print('$phone, $password, $profile, $username, $nama');
+    print('$phone, $password, $username, $nama');
 
     try {
-      await signUp(nama, username, phone, password, profile).then((response) {
+      await signUp(nama, username, phone, password).then((response) {
         if (response is User) {
           saveLoginData(response.token);
           Provider.of<UserProvider>(context, listen: false).setUser(response);
 
           // TODO: make it to be able to go back to the auth_screen, check the user id if it has already registered. Then show choose_mudaris screen when they first login (check in the database if user has chose any mudaris)
 
-          if (profile == '2') {
-            //mudaris
-            Navigator.of(context).pushNamedAndRemoveUntil(
-                VerifMudarisList.routeName, (e) => false);
-          } else {
-            //thullab
-            Navigator.of(context)
-                .pushNamedAndRemoveUntil(ChooseMudaris.routeName, (e) => false);
-          }
+          //thullab
+          Navigator.of(context)
+              .pushNamedAndRemoveUntil(ChooseMudaris.routeName, (e) => false);
 
           print('${response.username} successfully singed up!');
         } else {

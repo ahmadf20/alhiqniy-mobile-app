@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "589666747118",
+    "firebase_url": "https://al-hiqniy.firebaseio.com",
+    "project_id": "al-hiqniy",
+    "storage_bucket": "al-hiqniy.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:589666747118:android:7ebc6224f90b72cec269ff",
+        "android_client_info": {
+          "package_name": "com.alhiqniy.alhiqniy"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "589666747118-vm3314iphttq2frmc2o9gmfpeg4f0r8l.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.alhiqniy.alhiqniy",
+            "certificate_hash": "13b85785244c3517bddc2fb639250a357b3d3ae9"
+          }
+        },
+        {
+          "client_id": "589666747118-7ilhmaj5tbi44ac2cgjun5vcq64irgqn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB4fXfI03H19RCttE7qV3P125EtOXQZmm0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "589666747118-7ilhmaj5tbi44ac2cgjun5vcq64irgqn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

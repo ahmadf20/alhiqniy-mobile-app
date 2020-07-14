@@ -7,6 +7,8 @@ buildscript {
 
     dependencies {
         classpath 'com.android.tools.build:gradle:3.6.3' //default was 3.5.0, jitsi uses minimum version of 3.6.3
+        
+        classpath 'com.google.gms:google-services:4.3.3'
     }
 }
 

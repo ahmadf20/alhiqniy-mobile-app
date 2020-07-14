@@ -150,9 +150,7 @@ class _CallScreenState extends State<CallScreen> {
                   height: 64.0,
                   width: double.maxFinite,
                   child: RaisedButton(
-                    onPressed: () {
-                      _joinMeeting();
-                    },
+                    onPressed: _joinMeeting,
                     child: Text(
                       "Join Meeting",
                       style: TextStyle(color: Colors.white),
@@ -244,10 +242,10 @@ class _CallScreenState extends State<CallScreen> {
 
   static final Map<RoomNameConstraintType, RoomNameConstraint>
       customContraints = {
-    RoomNameConstraintType.MAX_LENGTH: new RoomNameConstraint((value) {
+    RoomNameConstraintType.MAX_LENGTH: RoomNameConstraint((value) {
       return value.trim().length <= 50;
     }, "Maximum room name length should be 30."),
-    RoomNameConstraintType.FORBIDDEN_CHARS: new RoomNameConstraint((value) {
+    RoomNameConstraintType.FORBIDDEN_CHARS: RoomNameConstraint((value) {
       return RegExp(r"[$€£]+", caseSensitive: false, multiLine: false)
               .hasMatch(value) ==
           false;

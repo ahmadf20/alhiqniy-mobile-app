@@ -169,25 +169,25 @@ class _CallScreenState extends State<CallScreen> {
     );
   }
 
-  _onAudioOnlyChanged(bool value) {
+  void _onAudioOnlyChanged(bool value) {
     setState(() {
       isAudioOnly = value;
     });
   }
 
-  _onAudioMutedChanged(bool value) {
+  void _onAudioMutedChanged(bool value) {
     setState(() {
       isAudioMuted = value;
     });
   }
 
-  _onVideoMutedChanged(bool value) {
+  void _onVideoMutedChanged(bool value) {
     setState(() {
       isVideoMuted = value;
     });
   }
 
-  _joinMeeting() async {
+  void _joinMeeting() async {
     String serverUrl =
         serverText.text?.trim()?.isEmpty ?? "" ? null : serverText.text;
 
@@ -264,7 +264,7 @@ class _CallScreenState extends State<CallScreen> {
     debugPrint("_onConferenceTerminated broadcasted with message: $message");
   }
 
-  _onError(error) {
+  void _onError(error) {
     debugPrint("_onError broadcasted: $error");
   }
 }

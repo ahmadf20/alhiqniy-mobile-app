@@ -4,6 +4,7 @@ import 'package:alhiqniy/models/m_user.dart';
 import 'package:alhiqniy/providers/p_user.dart';
 import 'package:alhiqniy/screens/s_main_menu.dart';
 import 'package:alhiqniy/utils/f_user.dart';
+import 'package:alhiqniy/utils/function.dart';
 import 'package:alhiqniy/widgets/w_button.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -11,6 +12,8 @@ import 'package:alhiqniy/screens/s_choose_halaqah.dart';
 import 'package:alhiqniy/screens/s_forgot_password.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+
+import '../main.dart';
 
 enum WidgetMarker { login, register }
 
@@ -391,15 +394,18 @@ class _AuthScreenState extends State<AuthScreen> {
   }
 
   Future<void> _signInHandleSubmitted() async {
-    var handphone = signInHandphoneTC.text.trim();
-    var password = signInPasswordTC.text.trim();
-
     setState(() => _isLoading = true);
 
-    print('$handphone, $password,');
+    Map data = {
+      "phone": signInHandphoneTC.text
+          .trim()
+          .replaceRange(0, signInHandphoneTC.text.trim().indexOf('8'), '62'),
+      "password": signInPasswordTC.text.trim(),
+      "deviceToken": deviceToken
+    };
 
     try {
-      await signIn(handphone, password).then((response) async {
+      await signIn(data).then((response) async {
         if (response is User) {
           await saveLoginData(response.token);
           Provider.of<UserProvider>(context, listen: false).setUser(response);
@@ -409,11 +415,12 @@ class _AuthScreenState extends State<AuthScreen> {
               .pushNamedAndRemoveUntil(MainMenu.routeName, (e) => false);
           print('${response.username} successfully logged in');
         } else {
-          showCustomDialog(response);
+          throw response;
         }
       });
     } catch (e) {
-      print(e);
+      logger.e(e);
+      customBotToastText(e.toString());
     } finally {
       setState(() => _isLoading = false);
       signInPasswordTC.clear();
@@ -421,34 +428,34 @@ class _AuthScreenState extends State<AuthScreen> {
   }
 
   Future<void> _sighUphandleSubmitted() async {
-    var nama = signUpNamaTC.text.trim();
-    var username = signUpUsernameTC.text.trim();
-    var phone = signUpHandphoneTC.text.trim();
-    var password = signUPpasswordTC.text.trim();
-
     setState(() => _isLoading = true);
 
-    print('$phone, $password, $username, $nama');
+    Map data = {
+      "phone": signUpHandphoneTC.text
+          .trim()
+          .replaceRange(0, signUpHandphoneTC.text.trim().indexOf('8'), '62'),
+      "password": signUPpasswordTC.text.trim(),
+      "deviceToken": deviceToken,
+      "name": signUpNamaTC.text.trim(),
+      "username": signUpUsernameTC.text.trim(),
+    };
 
     try {
-      await signUp(nama, username, phone, password).then((response) {
+      await signUp(data).then((response) {
         if (response is User) {
           saveLoginData(response.token);
           Provider.of<UserProvider>(context, listen: false).setUser(response);
 
           // TODO: make it to be able to go back to the auth_screen, check the user id if it has already registered. Then show choose_mudaris screen when they first login (check in the database if user has chose any mudaris)
-
-          //thullab
           Navigator.of(context)
               .pushNamedAndRemoveUntil(ChooseMudaris.routeName, (e) => false);
-
-          print('${response.username} successfully singed up!');
         } else {
-          showCustomDialog(response);
+          throw response;
         }
       });
     } catch (e) {
-      print(e);
+      logger.e(e);
+      customBotToastText(e.toString());
     } finally {
       setState(() => _isLoading = false);
       signInPasswordTC.clear();

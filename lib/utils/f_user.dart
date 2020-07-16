@@ -1,81 +1,64 @@
 import 'dart:async';
-import 'dart:convert';
 import 'package:alhiqniy/models/m_user.dart';
 import 'package:alhiqniy/screens/s_landing.dart';
 import 'package:alhiqniy/utils/const.dart';
 import 'package:alhiqniy/utils/keys.dart';
-import 'package:dio/dio.dart' as dio;
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../main.dart';
+import 'f_general.dart';
 
-Future getHeader([bool hasToken = true]) async {
-  Map<String, dynamic> header = {
-    'Content-Type': 'application/json',
-    'Accept': 'application/json',
-  };
-  if (hasToken) header['Authorization'] = 'Bearer ${await getToken()}';
-  return header;
-}
+Future<dynamic> signIn(Map data) async {
+  try {
+    Response response = await Dio().post('$url/users/sign-in',
+        data: data, options: Options(headers: await getHeader(false)));
 
-Future<dynamic> signIn(String phone, String password, String profile) async {
-  var body = json.encode({
-    "phone": phone.replaceRange(0, phone.indexOf('8'), '62'),
-    "password": password,
-    "profile": profile
-  });
+    var responseJson = response.data;
 
-  final response = await post(
-    '$url/users/sign-in',
-    body: body,
-  );
+    logger.v(responseJson);
 
-  var responseJson = json.decode(response.body);
-
-  logger.v(responseJson);
-
-  if (response.statusCode == 200) {
     if (responseJson['status'] == 'ERROR') {
-      return responseJson['message'][0];
+      return responseJson['messages'][0];
     } else {
+      responseJson['data']['token'] = responseJson['token'];
       return userFromJson(responseJson['data']);
     }
-  } else if (responseJson['status'] == 'ERROR') {
-    return responseJson['message'][0];
-  } else {
-    return 'Failed to login';
+  } on DioError catch (e) {
+    if (e.response != null) {
+      return e.response.data['messages'][0];
+    } else {
+      rethrow;
+    }
+  } catch (e) {
+    return ErrorMessage.general;
   }
 }
 
-Future<dynamic> signUp(String nama, String username, String phone,
-    String password, String profile) async {
-  var body = json.encode({
-    "phone": phone.replaceRange(0, phone.indexOf('8'), '62'),
-    "password": password,
-    "profile": profile,
-    "name": nama,
-    "username": username
-  });
+Future<dynamic> signUp(Map data) async {
+  try {
+    Response response = await Dio().post('$url/users/sign-up',
+        data: data, options: Options(headers: await getHeader(false)));
 
-  final response = await post(
-    '$url/users/sign-up',
-    body: body,
-  );
+    var responseJson = response.data;
 
-  var responseJson = json.decode(response.body);
-  logger.d(responseJson);
+    logger.v(responseJson);
 
-  //TODO: update the condition (response) with the proper error message
-  if (response.statusCode == 200) {
-    if (responseJson['data'] != null) {
-      return userFromJson(responseJson['data']);
+    if (responseJson['status'] == 'ERROR') {
+      return responseJson['messages'][0];
     } else {
-      return 'Failed to Sign Up';
+      responseJson['data']['token'] = responseJson['token'];
+      return userFromJson(responseJson['data']);
     }
-  } else {
-    return 'Failed to Sign Up';
+  } on DioError catch (e) {
+    if (e.response != null) {
+      return e.response.data['messages'][0];
+    } else {
+      rethrow;
+    }
+  } catch (e) {
+    return ErrorMessage.general;
   }
 }
 
@@ -105,12 +88,13 @@ Future<void> saveLoginData(String token) async {
 Future<void> updateToken(BuildContext context) async {
   SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
 
-  var handphone = sharedPreferences.getString('handphone');
-  var password = sharedPreferences.getString('password');
-  var profile = sharedPreferences.getString('profile');
+  Map data = {
+    'handphone': sharedPreferences.getString('handphone'),
+    'password': sharedPreferences.getString('password'),
+  };
 
   try {
-    await signIn(handphone, password, profile).then((value) async {
+    await signIn(data).then((value) async {
       await sharedPreferences.setString('token', value);
       print('Token has been updated!');
     });
@@ -133,43 +117,41 @@ Future<void> clearLoginData() async {
 
 Future getUserData() async {
   try {
-    dio.Response response = await dio.Dio()
-        .get('$url/users/me', options: dio.Options(headers: await getHeader()));
+    Response response = await Dio()
+        .get('$url/users/me', options: Options(headers: await getHeader()));
 
     logger.v(response.data);
 
     return userFromJson(response.data['data']);
-  } on dio.DioError catch (e) {
+  } on DioError catch (e) {
     if (e.response != null) {
       throw e.response.data['messages'][0];
     } else {
       rethrow;
     }
   } catch (e) {
-    logger.e(e);
-    throw ErrorMessage.general;
+    return ErrorMessage.general;
   }
 }
 
 Future<dynamic> updateUserData(Map data) async {
   try {
-    dio.Response response = await dio.Dio().put(
+    Response response = await Dio().put(
       '$url/users/me',
-      options: dio.Options(headers: await getHeader()),
+      options: Options(headers: await getHeader()),
       data: data,
     );
 
     logger.v(response.data);
 
     return userFromJson(response.data['data']);
-  } on dio.DioError catch (e) {
+  } on DioError catch (e) {
     if (e.response != null) {
-      throw e.response.data['messages'][0];
+      return e.response.data['messages'][0];
     } else {
       rethrow;
     }
   } catch (e) {
-    logger.e(e);
-    throw ErrorMessage.general;
+    return ErrorMessage.general;
   }
 }

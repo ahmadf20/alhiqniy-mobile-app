@@ -1,9 +1,10 @@
 import 'package:alhiqniy/main.dart';
 import 'package:alhiqniy/models/m_halaqah.dart';
 import 'package:alhiqniy/utils/const.dart';
-import 'package:alhiqniy/utils/f_user.dart';
 import 'package:alhiqniy/utils/keys.dart';
 import 'package:dio/dio.dart' as dio;
+
+import 'f_general.dart';
 
 Future getAllHalaqah() async {
   try {

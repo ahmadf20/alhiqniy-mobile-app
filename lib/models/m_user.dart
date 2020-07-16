@@ -1,52 +1,40 @@
-User userFromJson(Map str) => User.fromJson(str);
+User userFromJson(Map str) => User.fromJson((str));
 
 class User {
-  String id;
-
-  /// 3 = thullab, 2 = mudaris
-  String profileId;
-  String username;
-  String password;
-  String avatar;
-  String statusActive;
-  DateTime createdAt;
-  DateTime updatedAt;
-  String name;
-  String phone;
-  String token;
-  bool verified;
-
   User({
     this.id,
-    this.profileId,
+    this.groupId,
     this.username,
     this.password,
-    this.avatar,
-    this.statusActive,
-    this.createdAt,
-    this.updatedAt,
     this.name,
     this.phone,
+    this.active,
+    this.otp,
+    this.deviceToken,
     this.token,
-    this.verified,
   });
+
+  int id;
+  int groupId;
+  String username;
+  String password;
+  String name;
+  String phone;
+  bool active;
+  String otp;
+  String deviceToken;
+  String token;
 
   factory User.fromJson(Map<String, dynamic> json) => User(
         id: json["id"],
-        profileId: json["profile_id"],
+        groupId: json["group_id"],
         username: json["username"],
         password: json["password"],
-        avatar: json["avatar"],
-        statusActive: json["status_active"],
-        createdAt: json["created_at"] == null
-            ? null
-            : DateTime.parse(json["created_at"]),
-        updatedAt: json["updated_at"] == null
-            ? null
-            : DateTime.parse(json["updated_at"]),
         name: json["name"],
         phone: json["phone"],
+        active: json["active"],
+        otp: json["otp"],
+        deviceToken: json["device_token"],
         token: json["token"],
-        verified: json["verified"] ?? false,
       );
 }

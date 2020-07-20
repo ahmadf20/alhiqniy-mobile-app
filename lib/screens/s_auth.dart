@@ -246,29 +246,15 @@ class _AuthScreenState extends State<AuthScreen> {
   @override
   void initState() {
     super.initState();
-    setState(() {
-      _userType = (Provider.of<UserProvider>(context, listen: false).userType ==
-              UserType.thullab)
-          ? 'Thullab'
-          : 'Mudaris';
-    });
+    _userType = (Provider.of<UserProvider>(context, listen: false).userType ==
+            UserType.thullab)
+        ? 'Thullab'
+        : 'Mudaris';
   }
 
   @override
   void dispose() {
     super.dispose();
-    signInHandphoneTC.dispose();
-    signInPasswordTC.dispose();
-    signUpHandphoneTC.dispose();
-    signUPpasswordTC.dispose();
-    signUpNamaTC.dispose();
-    signUpUsernameTC.dispose();
-    signInHandphoneFocus.dispose();
-    signInpasswordFocus.dispose();
-    signUphandphoneFocus.dispose();
-    signUpPasswordFocus.dispose();
-    signUpNamaFocus.dispose();
-    signUpUsernameFocus.dispose();
   }
 
   @override

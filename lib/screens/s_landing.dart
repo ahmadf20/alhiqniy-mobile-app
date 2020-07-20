@@ -114,7 +114,8 @@ class _IntroScreenState extends State<IntroScreen> {
                         filter: ImageFilter.blur(sigmaX: 3, sigmaY: 8),
                         child: FlatButton(
                           shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(12)),
+                            borderRadius: BorderRadius.circular(12),
+                          ),
                           color: Colors.white.withAlpha(20),
                           onPressed: () {
                             Provider.of<UserProvider>(context, listen: false)

@@ -51,10 +51,11 @@ class _AccountSettingState extends State<AccountSetting> {
   }
 
   Future<void> updateProfile() async {
-    if (passwordTC.text.length < 3) {
-      myBotToastText('Password tidak boleh kosong');
-      return;
-    } else if (nameTC.text.isEmpty ||
+    // if (passwordTC.text.length < 3) {
+    //   myBotToastText('Password tidak boleh kosong');
+    //   return;
+    // } else
+    if (nameTC.text.isEmpty ||
         usernameTC.text.isEmpty ||
         phoneTC.text.isEmpty) {
       myBotToastText('Silakan lengkapi data Anda');
@@ -66,7 +67,7 @@ class _AccountSettingState extends State<AccountSetting> {
       "phone":
           phoneTC.text.replaceRange(0, phoneTC.text.indexOf('8'), '62').trim(),
       "username": usernameTC.text.trim(),
-      "password": passwordTC.text.trim(),
+      "deviceToken": deviceToken,
     };
 
     // if (newPasswordConfirmTC.text.isNotEmpty &&

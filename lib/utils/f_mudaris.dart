@@ -12,7 +12,7 @@ import 'package:http/http.dart';
 Future getAllMudaris() async {
   try {
     dio.Response response = await dio.Dio().get(
-      '$url/mudaris',
+      '$url/halaqah/user/me',
       options: dio.Options(headers: await getHeader()),
     );
 
@@ -23,11 +23,7 @@ Future getAllMudaris() async {
         .forEach((mudaris) => mudarisList.add(mudarisFromJson(mudaris)));
     return mudarisList;
   } on dio.DioError catch (e) {
-    if (e.response != null) {
-      throw e.response.data['messages'][0];
-    } else {
-      rethrow;
-    }
+    throw e?.response?.data['messages'][0] ?? e;
   } catch (e) {
     logger.e(e);
     throw ErrorMessage.general;

@@ -9,24 +9,17 @@ import 'f_general.dart';
 Future getAllHalaqah() async {
   try {
     dio.Response response = await dio.Dio().get(
-      '$url/halaqah',
+      '$url/halaqah/user/me',
       options: dio.Options(headers: await getHeader()),
     );
 
     logger.v(response.data);
 
-    List<Halaqah> list = [];
-    response.data['data']
-        .forEach((mudaris) => list.add(halaqahFromJson(mudaris)));
-    return list;
+    return halaqahFromJson(response.data);
   } on dio.DioError catch (e) {
-    if (e.response != null) {
-      throw e.response.data['messages'][0];
-    } else {
-      rethrow;
-    }
+    if (e.response != null) throw e.response.data['messages'][0];
+    rethrow;
   } catch (e) {
-    logger.e(e);
-    throw ErrorMessage.general;
+    return ErrorMessage.general;
   }
 }

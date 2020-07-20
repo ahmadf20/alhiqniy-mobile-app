@@ -212,20 +212,20 @@ class _MudarisCardListState extends State<MudarisCardList> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      Text(
-                        listHalaqah[index].mudaris.name,
-                        style: TextStyle(
-                          fontFamily: 'OpenSans',
-                          color: Colors.black,
-                          fontSize: 12,
-                        ),
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
-                      ),
+                      // Text(
+                      //   listHalaqah[index].mudaris.name,
+                      //   style: TextStyle(
+                      //     fontFamily: 'OpenSans',
+                      //     color: Colors.black,
+                      //     fontSize: 12,
+                      //   ),
+                      //   maxLines: 2,
+                      //   overflow: TextOverflow.ellipsis,
+                      // ),
                       Container(
                         padding: const EdgeInsets.only(top: 2.50, right: 10),
                         child: Text(
-                          '${listHalaqah[index].name}',
+                          '${item.title}',
                           style: TextStyle(
                             fontFamily: 'Muli',
                             fontSize: 18,
@@ -238,7 +238,7 @@ class _MudarisCardListState extends State<MudarisCardList> {
                       Padding(
                         padding: const EdgeInsets.only(top: 2.50),
                         child: Text(
-                          '${item.jadwalHari} | ${item.jadwalJam}',
+                          '${item.timeStart}',
                           style: TextStyle(
                             fontFamily: 'OpenSans',
                             color: Colors.grey,

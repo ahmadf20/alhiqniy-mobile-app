@@ -7,6 +7,8 @@ import 'package:alhiqniy/utils/function.dart';
 import 'package:alhiqniy/widgets/w_app_bar.dart';
 import 'package:flutter/material.dart';
 
+import '../main.dart';
+
 String _selectedMudaris;
 
 class VerifMudarisList extends StatefulWidget {
@@ -27,11 +29,11 @@ class _VerifMudarisListState extends State<VerifMudarisList> {
       await getAllMudaris().then((response) {
         if (response is List<Mudaris>) {
           listMudaris = response;
-          setState(() {});
+          if (mounted) setState(() {});
         }
       });
     } catch (e) {
-      print(e.toString());
+      logger.e(e);
       customBotToastText(e.toString());
     }
   }

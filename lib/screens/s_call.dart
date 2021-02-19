@@ -1,5 +1,7 @@
 import 'dart:io';
 
+import 'package:alhiqniy/models/m_user.dart';
+import 'package:alhiqniy/providers/p_user.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:jitsi_meet/jitsi_meet.dart';
@@ -7,6 +9,7 @@ import 'package:jitsi_meet/jitsi_meeting_listener.dart';
 import 'package:jitsi_meet/room_name_constraint.dart';
 import 'package:jitsi_meet/room_name_constraint_type.dart';
 import 'package:jitsi_meet/feature_flag/feature_flag_enum.dart';
+import 'package:provider/provider.dart';
 
 class CallScreen extends StatefulWidget {
   final String channelName;
@@ -18,10 +21,11 @@ class CallScreen extends StatefulWidget {
 
 class _CallScreenState extends State<CallScreen> {
   final serverText = TextEditingController();
-  final roomText = TextEditingController(text: "plugintestroom");
-  final subjectText = TextEditingController(text: "My Plugin Test Meeting");
-  final nameText = TextEditingController(text: "Plugin Test User");
-  final emailText = TextEditingController(text: "fake@email.com");
+  final roomText = TextEditingController(text: "halaqah");
+  final subjectText = TextEditingController(text: "Halaqah Online");
+  TextEditingController nameText = TextEditingController(text: "Thullab");
+  TextEditingController emailText =
+      TextEditingController(text: "fake@email.com");
   final iosAppBarRGBAColor =
       TextEditingController(text: "#0080FF80"); //transparent blue
   var isAudioOnly = true;
@@ -36,6 +40,12 @@ class _CallScreenState extends State<CallScreen> {
         onConferenceJoined: _onConferenceJoined,
         onConferenceTerminated: _onConferenceTerminated,
         onError: _onError));
+
+    User user = Provider.of<UserProvider>(context, listen: false).user;
+    if (user != null) {
+      nameText = TextEditingController(text: user.name);
+      emailText = TextEditingController(text: user.username);
+    }
   }
 
   @override
@@ -49,7 +59,7 @@ class _CallScreenState extends State<CallScreen> {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: const Text('Plugin example app'),
+          title: const Text('Halaqah Online'),
         ),
         body: Container(
           padding: const EdgeInsets.symmetric(
@@ -61,13 +71,13 @@ class _CallScreenState extends State<CallScreen> {
                 SizedBox(
                   height: 24.0,
                 ),
-                TextField(
-                  controller: serverText,
-                  decoration: InputDecoration(
-                      border: OutlineInputBorder(),
-                      labelText: "Server URL",
-                      hintText: "Hint: Leave empty for meet.jitsi.si"),
-                ),
+                // TextField(
+                //   controller: serverText,
+                //   decoration: InputDecoration(
+                //       border: OutlineInputBorder(),
+                //       labelText: "Server URL",
+                //       hintText: "Hint: Leave empty for meet.jitsi.si"),
+                // ),
                 SizedBox(
                   height: 16.0,
                 ),
@@ -75,19 +85,19 @@ class _CallScreenState extends State<CallScreen> {
                   controller: roomText,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
-                    labelText: "Room",
+                    labelText: "ID Room",
                   ),
                 ),
-                SizedBox(
-                  height: 16.0,
-                ),
-                TextField(
-                  controller: subjectText,
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: "Subject",
-                  ),
-                ),
+                // SizedBox(
+                //   height: 16.0,
+                // ),
+                // TextField(
+                //   controller: subjectText,
+                //   decoration: InputDecoration(
+                //     border: OutlineInputBorder(),
+                //     labelText: "Subject",
+                //   ),
+                // ),
                 SizedBox(
                   height: 16.0,
                 ),
@@ -98,26 +108,26 @@ class _CallScreenState extends State<CallScreen> {
                     labelText: "Display Name",
                   ),
                 ),
-                SizedBox(
-                  height: 16.0,
-                ),
-                TextField(
-                  controller: emailText,
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: "Email",
-                  ),
-                ),
-                SizedBox(
-                  height: 16.0,
-                ),
-                TextField(
-                  controller: iosAppBarRGBAColor,
-                  decoration: InputDecoration(
-                      border: OutlineInputBorder(),
-                      labelText: "AppBar Color(IOS only)",
-                      hintText: "Hint: This HAS to be in HEX RGBA format"),
-                ),
+                // SizedBox(
+                //   height: 16.0,
+                // ),
+                // TextField(
+                //   controller: emailText,
+                //   decoration: InputDecoration(
+                //     border: OutlineInputBorder(),
+                //     labelText: "Email",
+                //   ),
+                // ),
+                // SizedBox(
+                //   height: 16.0,
+                // ),
+                // TextField(
+                //   controller: iosAppBarRGBAColor,
+                //   decoration: InputDecoration(
+                //       border: OutlineInputBorder(),
+                //       labelText: "AppBar Color(IOS only)",
+                //       hintText: "Hint: This HAS to be in HEX RGBA format"),
+                // ),
                 SizedBox(
                   height: 16.0,
                 ),

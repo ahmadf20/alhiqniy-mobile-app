@@ -20,14 +20,14 @@ Future<dynamic> signIn(Map data) async {
     logger.v(responseJson);
 
     if (responseJson['status'] == 'ERROR') {
-      return responseJson['messages'][0];
+      return responseJson['messages'];
     } else {
       responseJson['data']['token'] = responseJson['token'];
       return userFromJson(responseJson['data']);
     }
   } on DioError catch (e) {
     if (e.response != null) {
-      return e.response.data['messages'][0];
+      return e.response.data['messages'];
     } else {
       rethrow;
     }

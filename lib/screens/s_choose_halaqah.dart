@@ -81,22 +81,20 @@ class _ChooseMudarisState extends State<ChooseMudaris> {
             MainButton(
               text: 'KONFIRMASI',
               image: 'assets/icons/arrow_right.png',
-              onPressed: listSelectedMudaris.isEmpty
-                  ? null
-                  : () {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) => DialogScreen(
-                            title: 'Sukses!',
-                            subtitle:
-                                'Antum baru akan terdaftar sebagai thulab di halaqah setelah mendapatkan konfirmasi dari mudaris yang bersangkutan',
-                            onConfirm: () => Navigator.of(context)
-                                .pushNamedAndRemoveUntil(
-                                    MainMenu.routeName, (e) => false),
-                          ),
-                        ),
-                      );
-                    },
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => DialogScreen(
+                      title: 'Sukses!',
+                      subtitle:
+                          'Antum baru akan terdaftar sebagai thulab di halaqah setelah mendapatkan konfirmasi dari mudaris yang bersangkutan',
+                      onConfirm: () => Navigator.of(context)
+                          .pushNamedAndRemoveUntil(
+                              MainMenu.routeName, (e) => false),
+                    ),
+                  ),
+                );
+              },
             ),
           ],
         ),

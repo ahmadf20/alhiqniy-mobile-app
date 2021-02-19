@@ -81,7 +81,7 @@ class _MainMenuState extends State<MainMenu> {
               height: 32,
               color: Theme.of(context).primaryColor,
             ),
-            title: Container(),
+            label: '',
           ),
           BottomNavigationBarItem(
             icon: Image.asset(
@@ -93,7 +93,7 @@ class _MainMenuState extends State<MainMenu> {
               height: 32,
               color: Theme.of(context).primaryColor,
             ),
-            title: Container(),
+            label: '',
           ),
           BottomNavigationBarItem(
             icon: Image.asset(
@@ -105,7 +105,7 @@ class _MainMenuState extends State<MainMenu> {
               height: 32,
               color: Theme.of(context).primaryColor,
             ),
-            title: Container(),
+            label: '',
           ),
           BottomNavigationBarItem(
             icon: Image.asset(
@@ -117,7 +117,7 @@ class _MainMenuState extends State<MainMenu> {
               height: 32,
               color: Theme.of(context).primaryColor,
             ),
-            title: Container(),
+            label: '',
           ),
           BottomNavigationBarItem(
             icon: Image.asset(
@@ -129,7 +129,7 @@ class _MainMenuState extends State<MainMenu> {
               height: 32,
               color: Theme.of(context).primaryColor,
             ),
-            title: Container(),
+            label: '',
           ),
         ],
       ),

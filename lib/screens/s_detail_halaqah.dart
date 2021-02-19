@@ -1,5 +1,7 @@
+import 'package:alhiqniy/screens/s_call.dart';
 import 'package:alhiqniy/screens/s_presence.dart';
 import 'package:flutter/material.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class DetailHalaqahScreen extends StatefulWidget {
   static const routeName = '/deatil_halaqah_screen';
@@ -11,6 +13,31 @@ class DetailHalaqahScreen extends StatefulWidget {
 }
 
 class _DetailHalaqahScreenState extends State<DetailHalaqahScreen> {
+  Future<void> onJoin() async {
+    try {
+      // await for camera and mic permissions before pushing video page
+      await _handleCameraAndMic();
+      // push video page with given channel name
+      await Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => CallScreen(
+            channelName: 'halaqah',
+          ),
+        ),
+      );
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  Future<void> _handleCameraAndMic() async {
+    Map<Permission, PermissionStatus> statuses = await [
+      Permission.location,
+      Permission.storage,
+    ].request();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -67,7 +94,7 @@ class _DetailHalaqahScreenState extends State<DetailHalaqahScreen> {
               ),
               SizedBox(height: 15),
               Text(
-                'Ustadz Fulan bin Fulan',
+                'Halaqah Online',
                 style: TextStyle(
                   fontFamily: 'OpenSans',
                   fontSize: 16,
@@ -75,12 +102,13 @@ class _DetailHalaqahScreenState extends State<DetailHalaqahScreen> {
                 ),
               ),
               Text(
-                'Ustadz Fulan bin Fulan',
+                'Mahad Imam Ahmad\nbin Hambal',
                 style: TextStyle(
                   fontFamily: 'Muli',
                   fontSize: 26,
                   fontWeight: FontWeight.w700,
                 ),
+                textAlign: TextAlign.center,
               ),
               Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -99,14 +127,14 @@ class _DetailHalaqahScreenState extends State<DetailHalaqahScreen> {
                       color: Colors.red,
                     ),
                   ),
-                  Text(
-                    ' | 12 Thullab hadir',
-                    style: TextStyle(
-                      fontFamily: 'OpenSans',
-                      fontSize: 12,
-                      color: Colors.grey,
-                    ),
-                  ),
+                  // Text(
+                  //   ' | 12 Thullab hadir',
+                  //   style: TextStyle(
+                  //     fontFamily: 'OpenSans',
+                  //     fontSize: 12,
+                  //     color: Colors.grey,
+                  //   ),
+                  // ),
                   Spacer(),
                 ],
               ),
@@ -127,8 +155,9 @@ class _DetailHalaqahScreenState extends State<DetailHalaqahScreen> {
                       padding: EdgeInsets.all(15),
                       shape: CircleBorder(),
                       child: Icon(Icons.arrow_forward),
-                      onPressed: () => Navigator.of(context)
-                          .pushNamed(PresenceScreen.routeName),
+                      // onPressed: () => Navigator.of(context)
+                      //     .pushNamed(PresenceScreen.routeName),
+                      onPressed: onJoin,
                     ),
                     SizedBox(height: 10),
                     Text(

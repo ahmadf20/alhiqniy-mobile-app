@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:alhiqniy/providers/p_user.dart';
+import 'package:alhiqniy/screens/s_home.dart';
 import 'package:alhiqniy/screens/s_landing.dart';
 import 'package:alhiqniy/screens/s_main_menu.dart';
 import 'package:alhiqniy/utils/f_user.dart';
@@ -224,7 +225,9 @@ class _CheckStateState extends State<CheckState> {
         ? Scaffold(
             body: Center(child: loadingIndicator()),
           )
-        : token == null ? IntroScreen() : MainMenu();
+        : token == null
+            ? IntroScreen()
+            : MainMenu();
   }
 }
 

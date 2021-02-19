@@ -32,10 +32,10 @@ class _AuthScreenState extends State<AuthScreen> {
   bool _isLoading = false;
   String _userType;
 
-  TextEditingController signInHandphoneTC = TextEditingController(
-      text: '8562207263'); //TODO: should be removed on production
+  TextEditingController signInHandphoneTC =
+      TextEditingController(text: kDebugMode ? '8562207263' : '');
   TextEditingController signInPasswordTC =
-      TextEditingController(text: 'thullab');
+      TextEditingController(text: kDebugMode ? 'password' : '');
 
   TextEditingController signUpHandphoneTC = TextEditingController();
   TextEditingController signUPpasswordTC = TextEditingController();

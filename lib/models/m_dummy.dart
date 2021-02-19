@@ -11,26 +11,26 @@ class MudarisDummy {
 
 List<MudarisDummy> listMudarisDummy = [
   MudarisDummy(
-    nama: 'Ustadz Abu Fulan',
+    nama: 'Mahad Imam Ahmad bin Hambal',
     gambar: 'assets/images/profile/profile1.png',
-    halaqah: 'Fawaidh',
+    halaqah: 'Halaqah Online',
     jadwalHari: 'Senin',
     jadwalJam: '10.00',
   ),
-  MudarisDummy(
-    nama: 'Ustadz Fulan bin Fulan',
-    gambar: 'assets/images/profile/profile2.png',
-    halaqah: 'Tuhfatul Athfal',
-    jadwalHari: 'Sabtu',
-    jadwalJam: '08.00',
-  ),
-  MudarisDummy(
-    nama: 'Ustadz Abdullah bin Fulan',
-    gambar: 'assets/images/profile/profile3.png',
-    halaqah: 'Al Kabair',
-    jadwalHari: 'Kamis',
-    jadwalJam: '18.00',
-  ),
+  // MudarisDummy(
+  //   nama: 'Ustadz Fulan bin Fulan',
+  //   gambar: 'assets/images/profile/profile2.png',
+  //   halaqah: 'Tuhfatul Athfal',
+  //   jadwalHari: 'Sabtu',
+  //   jadwalJam: '08.00',
+  // ),
+  // MudarisDummy(
+  //   nama: 'Ustadz Abdullah bin Fulan',
+  //   gambar: 'assets/images/profile/profile3.png',
+  //   halaqah: 'Al Kabair',
+  //   jadwalHari: 'Kamis',
+  //   jadwalJam: '18.00',
+  // ),
 ];
 
 class Thullab {
